@@ -12,7 +12,8 @@
    maxHeight="-Infinity" maxWidth="-Infinity" 
    minHeight="-Infinity" minWidth="-Infinity" 
    prefHeight="700.0" prefWidth="1000.0" 
-   stylesheets="@loginStyle.css" xmlns="http://javafx.com/javafx/19" 
+   stylesheets="@../resources/style/loginStyle.css"
+   xmlns="http://javafx.com/javafx/19"
    xmlns:fx="http://javafx.com/fxml/1"
    fx:controller="gov.iti.jets.controllers.LoginPage1FxmlController">
    <center>
