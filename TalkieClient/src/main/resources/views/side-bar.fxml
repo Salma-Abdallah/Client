@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<VBox minWidth="-Infinity" prefWidth="60.0" style="-fx-background-color: #83BDC0;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <padding>
+      <Insets left="10.0" right="10.0" />
+   </padding>
+   <children>
+      <ImageView fx:id="sideBar_logo_view" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/talkie_logo.png" />
+         </image>
+         <VBox.margin>
+            <Insets bottom="50.0" top="10.0" />
+         </VBox.margin>
+      </ImageView>
+      <StackPane fx:id="sideBar_notification_stack" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0">
+         <children>
+            <ImageView fx:id="sideBar_notification_view" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/icons8-notification-40.png" />
+               </image>
+               <StackPane.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </StackPane.margin>
+            </ImageView>
+            <Circle fx:id="sideBar_notification_on_circle" centerX="2.0" fill="DODGERBLUE" radius="6.0" stroke="BLACK" strokeType="INSIDE" translateX="7.0" translateY="-7.0" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="15.0" top="15.0" />
+         </VBox.margin>
+      </StackPane>
+      <ImageView fx:id="sideBar_add_friend_view" fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/add-user.png" />
+         </image>
+         <VBox.margin>
+            <Insets bottom="10.0" left="7.0" right="3.0" top="10.0" />
+         </VBox.margin>
+      </ImageView>
+      <ImageView fx:id="sideBar_blocked_list_view" fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/block-user.png" />
+         </image>
+         <VBox.margin>
+            <Insets bottom="10.0" left="4.0" top="10.0" />
+         </VBox.margin>
+      </ImageView>
+      <ImageView fx:id="sideBar_status_icon_view" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/connection-status-online.png" />
+         </image>
+         <VBox.margin>
+            <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+         </VBox.margin>
+      </ImageView>
+      <HBox fx:id="sideBar_space_HBox" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+      <ImageView fx:id="sideBar_user_profile_view" fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/account.png" />
+         </image>
+         <VBox.margin>
+            <Insets bottom="30.0" left="3.0" right="3.0" top="10.0" />
+         </VBox.margin>
+      </ImageView>
+   </children>
+</VBox>
