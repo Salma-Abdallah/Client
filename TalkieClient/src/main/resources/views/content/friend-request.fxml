@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<SplitPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="700.0" prefWidth="711.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<SplitPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <items>
       <VBox prefHeight="60.0" prefWidth="711.0">
          <children>
@@ -20,7 +20,7 @@
                <children>
                   <ImageView fitHeight="40.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../../../Desktop/New%20folder%20(2)/Client/TalkieClient/src/main/resources/icons/account_circle.png" />
+                        <Image url="@Images/add-user.png" />
                      </image>
                      <HBox.margin>
                         <Insets left="15.0" top="15.0" />
@@ -50,7 +50,7 @@
                         <Insets top="20.0" />
                      </HBox.margin>
                      <image>
-                        <Image url="@../../../../../../../../../../Desktop/New%20folder%20(2)/Client/TalkieClient/src/main/resources/icons/add_circle_outline.png" />
+                        <Image url="@Images/add_circle.png" />
                      </image>
                   </ImageView>
                </children>
@@ -65,7 +65,7 @@
                      <graphic>
                         <ImageView fitHeight="17.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../../../../../../Desktop/New%20folder%20(2)/Client/TalkieClient/src/main/resources/icons/call_made.png" />
+                              <Image url="@Images/call_made.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -80,7 +80,7 @@
                      <graphic>
                         <ImageView fitHeight="17.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../../../../../../Desktop/New%20folder%20(2)/Client/TalkieClient/src/main/resources/icons/call_received.png" />
+                              <Image url="@Images/call_received.png" />
                            </image>
                         </ImageView>
                      </graphic>

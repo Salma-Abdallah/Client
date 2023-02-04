@@ -6,21 +6,20 @@ package gov.iti.jets.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 
-/**
- * FXML Controller class
- *
- * @author Sara Adel
- */
-public class FXMLFriendRequestController implements Initializable {
+public class BlockListController implements Initializable, FXMLController {
 
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private Text blockList;
+    @FXML
+    private ImageView blockIcon;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+    
     }    
     
 }

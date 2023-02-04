@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<Pane fx:id="notification" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="159.0" prefWidth="389.0" stylesheets="/style/notification.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gov.iti.jets.controllers.NotificationController">
+<Pane fx:id="notification" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="159.0" prefWidth="389.0" stylesheets="/style/notification.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Text fx:id="talkie" fill="#f7c9b6" layoutX="68.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Talkie" textAlignment="CENTER" wrappingWidth="77.6708984375">
          <font>

@@ -13,7 +13,7 @@ import javafx.fxml.Initializable;
  *
  * @author Sara Adel
  */
-public class FXMLWelcomeController implements Initializable {
+public class FriendRequestController implements Initializable, FXMLController {
 
     /**
      * Initializes the controller class.

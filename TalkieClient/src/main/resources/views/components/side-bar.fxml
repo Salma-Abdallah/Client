@@ -15,7 +15,7 @@
    <children>
       <ImageView fx:id="sideBar_logo_view" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/talkie_logo.png" />
+            <Image url="@images/talkie_logo.png" />
          </image>
          <VBox.margin>
             <Insets bottom="50.0" top="10.0" />
@@ -25,7 +25,7 @@
          <children>
             <ImageView fx:id="sideBar_notification_view" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/icons8-notification-40.png" />
+                  <Image url="@images/icons8-notification-40.png" />
                </image>
                <StackPane.margin>
                   <Insets bottom="10.0" top="10.0" />
@@ -39,7 +39,7 @@
       </StackPane>
       <ImageView fx:id="sideBar_add_friend_view" fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/add-user.png" />
+            <Image url="@images/add-user.png" />
          </image>
          <VBox.margin>
             <Insets bottom="10.0" left="7.0" right="3.0" top="10.0" />
@@ -47,7 +47,7 @@
       </ImageView>
       <ImageView fx:id="sideBar_blocked_list_view" fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/block-user.png" />
+            <Image url="@images/block-user.png" />
          </image>
          <VBox.margin>
             <Insets bottom="10.0" left="4.0" top="10.0" />
@@ -55,7 +55,7 @@
       </ImageView>
       <ImageView fx:id="sideBar_status_icon_view" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/connection-status-online.png" />
+            <Image url="@images/connection-status-online.png" />
          </image>
          <VBox.margin>
             <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
@@ -64,10 +64,18 @@
       <HBox fx:id="sideBar_space_HBox" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
       <ImageView fx:id="sideBar_user_profile_view" fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/account.png" />
+            <Image url="@images/account.png" />
          </image>
          <VBox.margin>
-            <Insets bottom="30.0" left="3.0" right="3.0" top="10.0" />
+            <Insets bottom="10.0" left="3.0" right="3.0" top="10.0" />
+         </VBox.margin>
+      </ImageView>
+      <ImageView fx:id="sideBar_logout_view" fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/logout_icon.png" />
+         </image>
+         <VBox.margin>
+            <Insets bottom="30.0" left="2.0" right="5.0" top="10.0" />
          </VBox.margin>
       </ImageView>
    </children>

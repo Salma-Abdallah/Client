@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.ToggleGroup?>
+
+<SplitPane fx:id="contentSplitPane" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <items>
+      <VBox minWidth="-Infinity" spacing="10.0" style="-fx-background-color: #83bdc0;">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="60.0" style="-fx-background-color: #549bad;">
+               <rotationAxis>
+                  <Point3D />
+               </rotationAxis>
+               <children>
+                  <Label text="User Profile">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="383.0" prefWidth="708.0" spacing="20.0" style="-fx-background-color: #83bdc0;" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="302.0" prefWidth="148.0" spacing="10.0" HBox.hgrow="NEVER">
+                     <children>
+                        <ImageView fitHeight="157.0" fitWidth="148.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/default_user.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </ImageView>
+                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Choose Picture" textAlignment="CENTER">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </Button>
+                        <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="150.0" text="Confirm" textAlignment="CENTER">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="264.0" prefWidth="530.0" spacing="25.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <GridPane hgap="10.0" nodeOrientation="LEFT_TO_RIGHT" vgap="10.0" VBox.vgrow="ALWAYS">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
+                              <ColumnConstraints hgrow="ALWAYS" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="-Infinity" prefHeight="50.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="-Infinity" prefHeight="50.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="-Infinity" prefHeight="50.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="-Infinity" prefHeight="50.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="-Infinity" prefHeight="50.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="-Infinity" prefHeight="50.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="-Infinity" prefHeight="50.0" vgrow="SOMETIMES" />
+                              <RowConstraints valignment="TOP" vgrow="SOMETIMES" />
+                              <RowConstraints />
+                           </rowConstraints>
+                           <children>
+                              <Label text="Username">
+                                 <GridPane.margin>
+                                    <Insets left="20.0" />
+                                 </GridPane.margin>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Phone number" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets left="20.0" />
+                                 </GridPane.margin>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Password" GridPane.rowIndex="2">
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </TextField>
+                              <TextField GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </TextField>
+                              <TextField GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </TextField>
+                              <Label text="Confirm Password" GridPane.rowIndex="3">
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </TextField>
+                              <Label text="Country" GridPane.rowIndex="4">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <TextField GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </TextField>
+                              <Label text="Gender" GridPane.rowIndex="5">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <HBox alignment="CENTER_LEFT" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                 <fx:define>
+                                    <ToggleGroup fx:id="gender_options"/>
+                                 </fx:define>
+                                 <children>
+                                    <RadioButton mnemonicParsing="false" text="Male" toggleGroup="$gender_options">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </HBox.margin>
+                                    </RadioButton>
+                                    <RadioButton mnemonicParsing="false" text="Female" toggleGroup="$gender_options">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </HBox.margin>
+                                    </RadioButton>
+                                 </children>
+                              </HBox>
+                              <Label text="Date Of Birth" GridPane.rowIndex="6">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <DatePicker GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </DatePicker>
+                              <Label alignment="TOP_LEFT" text="Bio" GridPane.rowIndex="7">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <TextArea prefHeight="200.0" prefWidth="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </TextArea>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </items>
+</SplitPane>

@@ -24,7 +24,7 @@
                         <Insets bottom="2.0" left="15.0" top="2.0" />
                      </HBox.margin>
                      <image>
-                        <Image url="@../images/default_user.png" />
+                        <Image url="@images/default_user.png" />
                      </image>
                   </ImageView>
                   <VBox fx:id="chatInfoImageView" HBox.hgrow="ALWAYS">
@@ -47,7 +47,7 @@
                      <graphic>
                         <ImageView fx:id="videoCallButtonImageView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/video-call.png" />
+                              <Image url="@images/video-call.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -56,7 +56,7 @@
                      <graphic>
                         <ImageView fx:id="voiceCallButtonImageView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/voice-call.png" />
+                              <Image url="@images/voice-call.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -65,7 +65,7 @@
                      <graphic>
                         <ImageView fx:id="moreButtonImageView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/more.png" />
+                              <Image url="@images/more.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -74,7 +74,7 @@
             </HBox>
             <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="639.0" prefWidth="453.0" VBox.vgrow="ALWAYS">
                <content>
-                  <VBox id="chatting_panel" style="-fx-border-width: 0;" stylesheets="@../style/main.css" />
+                  <VBox id="chatting_panel" style="-fx-border-width: 0;" />
                </content>
             </ScrollPane>
             <HBox alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="40.0" style="-fx-background-color: #E0E0E0; -fx-background-radius: 20 20 0 0; -fx-border-color: #549BAD; -fx-border-width: 1  1 0 1; -fx-border-radius: 20 20 0 0;">
@@ -93,7 +93,7 @@
                      <graphic>
                         <ImageView fx:id="textBoldButtonImageView" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/bold-button.png" />
+                              <Image url="@images/bold-button.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -102,7 +102,7 @@
                      <graphic>
                         <ImageView fx:id="textItalicButtonImageView" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/italic-button.png" />
+                              <Image url="@images/italic-button.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -111,7 +111,7 @@
                      <graphic>
                         <ImageView fx:id="textUnderlineButtonImageView" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: white;">
                            <image>
-                              <Image url="@../images/underline-button.png" />
+                              <Image url="@images/underline-button.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -120,7 +120,7 @@
                      <graphic>
                         <ImageView fx:id="textColorButtonImageView" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/text-color-button.png" />
+                              <Image url="@images/text-color-button.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -129,7 +129,7 @@
                      <graphic>
                         <ImageView fx:id="textbackgroundColorButtonImageView" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/Background-color.png" />
+                              <Image url="@images/Background-color.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -138,7 +138,7 @@
                      <graphic>
                         <ImageView fx:id="emojiButtonImageView" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/Emoji_icon.png" />
+                              <Image url="@images/Emoji_icon.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -147,7 +147,7 @@
                      <graphic>
                         <ImageView fx:id="attachmentButtonImageView" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/attachment_icon.png" />
+                              <Image url="@images/attachment_icon.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -168,7 +168,7 @@
                      <graphic>
                         <ImageView fx:id="voiceNoteButtonImageView" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/mic_Icon.png" />
+                              <Image url="@images/mic_Icon.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -177,7 +177,7 @@
                      <graphic>
                         <ImageView fx:id="sendButtonImageView" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: white;">
                            <image>
-                              <Image url="@../images/send.png" />
+                              <Image url="@images/send.png" />
                            </image>
                         </ImageView>
                      </graphic>

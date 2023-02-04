@@ -1,5 +1,6 @@
 package gov.iti.jets;
 
+import gov.iti.jets.manager.StageManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
@@ -12,11 +13,14 @@ public class TalkieClientApplication extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        stage.setTitle("Home");
-        Parent home = FXMLLoader.load(getClass().getResource("/views/notification.fxml"));
-        Scene scene = new Scene(home);
-        stage.setScene(scene);
-        stage.setResizable(false);
+        StageManager.INSTANCE.initStage(stage);
+        StageManager.INSTANCE.loadScene("welcome");
+
+        // stage.setTitle("Home");
+        // Parent home = FXMLLoader.load(getClass().getResource("/views/notification.fxml"));
+        // Scene scene = new Scene(home);
+        // stage.setScene(scene);
+        // stage.setResizable(false);
         stage.show();
     }
 }

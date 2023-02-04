@@ -7,7 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
-public class NotificationController implements Initializable {
+public class NotificationController implements Initializable, FXMLController {
 
     @FXML
     private ResourceBundle resources;

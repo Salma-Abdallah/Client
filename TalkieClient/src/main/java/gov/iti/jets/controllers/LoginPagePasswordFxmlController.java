@@ -9,13 +9,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
-public class SignupPageFxmlController implements Initializable, FXMLController{
+public class LoginPagePasswordFxmlController implements Initializable, FXMLController{
 
     @FXML
     private ResourceBundle resources;
@@ -24,54 +22,31 @@ public class SignupPageFxmlController implements Initializable, FXMLController{
     private URL location;
 
     @FXML
-    private TextField ConfirmPasswordTextField;
-
-    @FXML
-    private RadioButton FemaleRadioButton;
-
-    @FXML
-    private TextField countryTextField;
-
-    @FXML
-    private DatePicker datePicker;
-
-    @FXML
-    private TextField emailTextField;
-
-    @FXML
-    private RadioButton maleRadioButton;
-
-    @FXML
-    private TextField nameTextField;
-
-    @FXML
     private TextField passwordTextField;
 
     @FXML
-    private TextField phoneNoTextField;
+    private Label previousButton;
 
     @FXML
-    private Label previousLabel;
-
-    @FXML
-    private Button startButton;
+    private Button submitButton;
 
     // @FXML
     // void initialize() {
         
-
     // }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        previousLabel.setOnMouseClicked((MouseEvent event)->{
-            StageManager.INSTANCE.loadScene("welcome");
+        previousButton.setOnMouseClicked((MouseEvent event)->{
+            StageManager.INSTANCE.loadScene("login-page-username");
         });
 
-        startButton.setOnAction((ActionEvent event)->{
-            //RegisterUser
+        submitButton.setOnAction((ActionEvent event)->{
+            //set current user password after hashing from passwordTextField.getText()
+            //validate password
             MainAlignmentController mainAlignmentController = (MainAlignmentController)StageManager.INSTANCE.loadScene("main-alignment");
             MainPanelManager.INSTANCE.setup(mainAlignmentController.getMainHBox());
+
         });
         
     }

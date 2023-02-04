@@ -16,10 +16,9 @@
    maxHeight="-Infinity" maxWidth="-Infinity" 
    minHeight="-Infinity" minWidth="-Infinity" 
    prefHeight="700.0" prefWidth="1000.0" 
-   stylesheets="@loginStyle.css" 
+   stylesheets="@style/login-style.css" 
    xmlns="http://javafx.com/javafx/19" 
-   xmlns:fx="http://javafx.com/fxml/1"
-   fx:controller="gov.iti.jets.controllers.SignupPageFxmlController">
+   xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" opacity="0.8" prefHeight="607.0" prefWidth="658.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
          <center>

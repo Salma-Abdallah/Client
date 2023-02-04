@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+
+<SplitPane fx:id="defaultContentSplitPane" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <items>
+      <VBox fx:id="defaultContentVBox" alignment="CENTER" minWidth="-Infinity" prefWidth="470.0">
+         <children>
+            <ImageView fx:id="logoImageView" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/talki-logo-with-name.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+   </items>
+</SplitPane>

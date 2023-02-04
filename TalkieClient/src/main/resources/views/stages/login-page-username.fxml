@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -12,10 +12,9 @@
    maxHeight="-Infinity" maxWidth="-Infinity" 
    minHeight="-Infinity" minWidth="-Infinity" 
    prefHeight="700.0" prefWidth="1000.0" 
-   stylesheets="@loginStyle.css" 
-   xmlns="http://javafx.com/javafx/19" 
-   xmlns:fx="http://javafx.com/fxml/1"
-   fx:controller="gov.iti.jets.controllers.LoginPage2FxmlController">
+   stylesheets="@style/login-style.css"
+   xmlns="http://javafx.com/javafx/19"
+   xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" opacity="0.94" prefHeight="386.0" prefWidth="370.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
          <center>
@@ -29,7 +28,7 @@
                         <Insets left="150.0" right="150.0" top="15.0" />
                      </VBox.margin>
                   </Label>
-                  <Label text="Password :" textFill="#549bad">
+                  <Label text="Phone number :" textFill="#549bad">
                      <font>
                         <Font name="Lucida Calligraphy Italic" size="17.0" />
                      </font>
@@ -37,27 +36,31 @@
                         <Insets bottom="5.0" left="20.0" top="60.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField fx:id="passwordTextField" prefHeight="35.0" prefWidth="330.0" promptText="Enter your password">
+                  <TextField fx:id="phoneNoTextField" prefHeight="35.0" prefWidth="330.0" promptText="Enter your phone number">
                      <VBox.margin>
                         <Insets left="30.0" right="30.0" />
                      </VBox.margin>
                   </TextField>
-                  <Button id="btt1" fx:id="submitButton" mnemonicParsing="false" style="-fx-background-color: #3C4C70;" text="Submit" textFill="WHITE">
-                     <padding>
-                        <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
-                     </padding>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="20.0" prefWidth="361.0">
                      <VBox.margin>
-                        <Insets left="165.5" right="165.5" top="60.0" />
+                        <Insets left="20.0" top="150.0" />
                      </VBox.margin>
-                  </Button>
-                  <Label id="labelp" fx:id="previousButton" text="Previous page" textFill="#549bad" underline="true">
-                     <VBox.margin>
-                        <Insets left="20.0" right="125.0" top="60.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font name="Lucida Calligraphy Italic" size="13.0" />
-                     </font>
-                  </Label>
+                     <children>
+                        <Label id="labelp" fx:id="previousLabel" text="&lt; Previous page" textFill="#549bad" underline="true">
+                           <font>
+                              <Font name="Lucida Calligraphy Italic" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label id="labelp" fx:id="nextLabel" layoutX="10.0" layoutY="10.0" text="Next page &gt;" textFill="#549bad" underline="true">
+                           <font>
+                              <Font name="Lucida Calligraphy Italic" size="13.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="160.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </center>

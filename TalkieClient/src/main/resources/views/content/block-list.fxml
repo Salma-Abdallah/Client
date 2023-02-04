@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<SplitPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <items>
+      <VBox prefHeight="60.0" prefWidth="711.0">
+         <children>
+            <HBox prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #83BDC0;">
+               <children>
+                  <ImageView fitHeight="40.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/block.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="15.0" top="15.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Text fill="#001f3f" strokeType="OUTSIDE" strokeWidth="0.0" text="Block List">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="5.0" top="10.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </items>
+</SplitPane>
