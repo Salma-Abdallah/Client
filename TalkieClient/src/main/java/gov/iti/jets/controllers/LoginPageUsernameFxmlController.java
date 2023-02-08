@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import gov.iti.jets.manager.StageManager;
+import gov.iti.jets.models.CurrentUser;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -42,7 +43,7 @@ public class LoginPageUsernameFxmlController implements Initializable, FXMLContr
             //set current user uswername from phoneNoTextField.getText()
             //validate username exists
             StageManager.INSTANCE.loadScene("login-page-password");
-            
+            CurrentUser.getInstance().getUser().setPhoneNumber(phoneNoTextField.getText());
         });
         
     }

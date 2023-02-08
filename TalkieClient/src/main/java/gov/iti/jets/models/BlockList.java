@@ -1,21 +1,12 @@
-package gov.iti.jets.dto;
+package gov.iti.jets.models;
 
-public class BlockListDTO {
-    private int id;
+public class BlockList {
     private int userId;
     private int blockedUserId;
 
-    public BlockListDTO(int id, int userId, int blockedUserId) {
-        this.id = id;
+    public BlockList(int userId, int blockedUserId) {
         this.userId = userId;
         this.blockedUserId = blockedUserId;
-    }
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getUserId() {
