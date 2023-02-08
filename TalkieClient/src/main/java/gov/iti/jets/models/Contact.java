@@ -1,39 +1,29 @@
-package gov.iti.jets.dto;
+package gov.iti.jets.models;
 
-public class ContactDTO {
-    private int id;
-    private int userId;
-    private int contactId;
+public class Contact {
+    private User userId;
+    private User contactId;
     private String category;
 
-    public ContactDTO(int id, int userId, int contactId, String category) {
-        this.id = id;
+    public Contact(User userId, User contactId, String category) {
         this.userId = userId;
         this.contactId = contactId;
         this.category = category;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getUserId() {
+    public User getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
     }
 
-    public int getContactId() {
+    public User getContactId() {
         return contactId;
     }
 
-    public void setContactId(int contactId) {
+    public void setContactId(User contactId) {
         this.contactId = contactId;
     }
 
@@ -47,9 +37,8 @@ public class ContactDTO {
 
     @Override
     public String toString() {
-        return "ContactDTO{" +
-                "id=" + id +
-                ", userId=" + userId +
+        return "Contact{" +
+                "userId=" + userId +
                 ", contactId=" + contactId +
                 ", category='" + category + '\'' +
                 '}';

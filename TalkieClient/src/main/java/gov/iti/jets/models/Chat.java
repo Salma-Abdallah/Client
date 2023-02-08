@@ -1,8 +1,8 @@
-package gov.iti.jets.dto;
+package gov.iti.jets.models;
 
-public class ChatDTO{
+public class Chat{
     private int id;
-    public ChatDTO(int id){
+    public Chat(int id){
         this.id = id;
     }
     public void setId(int id) {

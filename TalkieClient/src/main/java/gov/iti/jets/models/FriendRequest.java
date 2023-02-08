@@ -1,46 +1,40 @@
-package gov.iti.jets.dto;
+package gov.iti.jets.models;
 
 import java.sql.Timestamp;
 
-public class FriendRequestDTO {
+public class FriendRequest {
 
-    private int id;
-    private int senderId;
-    private int receiverId;
+    private User senderId;
+    private User receiverId;
     private boolean status;
     private Timestamp sentAt;
 
 
-    public FriendRequestDTO(int id, int senderId, int receiverId, boolean status, Timestamp sentAt) {
-        this.id = id;
+    public FriendRequest(User senderId, User receiverId, boolean status, Timestamp sentAt) {
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.status = status;
         this.sentAt = sentAt;
     }
 
-    public void setSenderId(int senderId) {
-        this.senderId = senderId;
-    }
-
-    public int getSenderId() {
+    public User getSenderId() {
         return senderId;
     }
 
-    public void setReceiverId(int receiverId) {
-        this.receiverId = receiverId;
+    public void setSenderId(User senderId) {
+        this.senderId = senderId;
     }
 
-    public int getReceiverId() {
+    public User getReceiverId() {
         return receiverId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setReceiverId(User receiverId) {
+        this.receiverId = receiverId;
     }
 
-    public int getId() {
-        return id;
+    public boolean isStatus() {
+        return status;
     }
 
     public boolean getStatus() {
@@ -61,9 +55,8 @@ public class FriendRequestDTO {
 
     @Override
     public String toString() {
-        return "FriendRequestDTO{" +
-                "id=" + id +
-                ", senderId=" + senderId +
+        return "FriendRequest{" +
+                "senderId=" + senderId +
                 ", receiverId=" + receiverId +
                 ", status=" + status +
                 ", sentAt=" + sentAt +
