@@ -6,7 +6,11 @@ package gov.iti.jets.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 
 /**
  * FXML Controller class
@@ -14,13 +18,15 @@ import javafx.fxml.Initializable;
  * @author Sara Adel
  */
 public class FriendRequestController implements Initializable, FXMLController {
+    @FXML
+    private HBox hgrow;
 
-    /**
-     * Initializes the controller class.
-     */
+
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+        HBox.setHgrow(hgrow, Priority.ALWAYS);
+
+    }
     
 }
