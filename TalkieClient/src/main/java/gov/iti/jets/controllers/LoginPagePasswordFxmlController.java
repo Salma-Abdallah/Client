@@ -57,26 +57,26 @@ public class LoginPagePasswordFxmlController implements Initializable, FXMLContr
             //validate password
             String password = EncryptionUtil.encrypt(passwordTextField.getText());
 
-        LoginRequest loginRequest = new LoginRequest(CurrentUser.getInstance().getUser().getPhoneNumber(), password);
-        try {
+            LoginRequest loginRequest = new LoginRequest(CurrentUser.getInstance().getUser().getPhoneNumber(), password);
+            try {
 
-            AuthenticationController authenticationController = (AuthenticationController) NetworkManager.getRegistry().lookup("AuthenticationController");
-            LoginResponse response = authenticationController.login(loginRequest);
-            System.out.println(response);
-            if (response != null){
-                CurrentUser.getInstance().setUser(new User(response.getUserName(), response.getPhoneNumber(),
-                        response.getEmail(), response.getPassword(), response.getGender(), response.getCountry(),
-                        response.getBirthDate(), response.getOnlineStatus(), response.getBio(), response.getPicture(),
-                        response.getPictureExtension()));
-                ImageUtils.storeImage(CurrentUser.getInstance().getUser());
-                MainAlignmentController mainAlignmentController = (MainAlignmentController)StageManager.INSTANCE.loadScene("main-alignment");
-                MainPanelManager.INSTANCE.setup(mainAlignmentController.getMainHBox());
+                AuthenticationController authenticationController = (AuthenticationController) NetworkManager.getRegistry().lookup("AuthenticationController");
+                LoginResponse response = authenticationController.login(loginRequest);
+                System.out.println(response);
+                if (response != null){
+                    CurrentUser.getInstance().setUser(new User(response.getUserName(), response.getPhoneNumber(),
+                            response.getEmail(), response.getPassword(), response.getGender(), response.getCountry(),
+                            response.getBirthDate(), response.getOnlineStatus(), response.getBio(), response.getPicture(),
+                            response.getPictureExtension()));
+                    ImageUtils.storeImage(CurrentUser.getInstance().getUser());
+                    MainAlignmentController mainAlignmentController = (MainAlignmentController)StageManager.INSTANCE.loadScene("main-alignment");
+                    MainPanelManager.INSTANCE.setup(mainAlignmentController.getMainHBox());
+                }
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            } catch (NotBoundException e) {
+                throw new RuntimeException(e);
             }
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        } catch (NotBoundException e) {
-            throw new RuntimeException(e);
-        }
 
         });
         

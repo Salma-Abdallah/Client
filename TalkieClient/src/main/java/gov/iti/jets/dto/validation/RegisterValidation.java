@@ -17,6 +17,14 @@ public class RegisterValidation implements Serializable {
         this.phoneNumberError = phoneNumberError;
     }
 
+    public String getEmailError() {
+        return emailError;
+    }
+
+    public String getPhoneNumberError() {
+        return phoneNumberError;
+    }
+    
     @Override
     public String toString() {
         return "RegisterValidation{" +

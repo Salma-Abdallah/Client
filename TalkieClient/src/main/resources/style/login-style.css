@@ -8,7 +8,7 @@
 }
 
 #labelp:hover{
--fx-text-fill: #258096;
+	-fx-text-fill: #258096;
 }
 
 .button{
@@ -21,4 +21,10 @@
     	-fx-text-fill: white;
     	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
 }
+
+.validationError{
+	-fx-text-fill: #ff0000;
+}
+
+
 

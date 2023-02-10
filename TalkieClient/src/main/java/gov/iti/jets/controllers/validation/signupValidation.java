@@ -1,22 +1,27 @@
 package gov.iti.jets.controllers.validation;
 
+import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class signupValidation {
-    public signupValidation(){
+public class SignupValidation {
+    public SignupValidation(){
 
     }
 
-    public boolean userNameValidate(String name) {
-        if (name == null) {
+    public static boolean userNameValidate(String name) {
+        if (name == null)
             return false;
-        }
-        return true;
+        
+        String regex = "^[A-Za-z0-9]{6,}$";
+
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(name);
+        return matcher.matches();
     }
 
 
-    public boolean phoneNumberValidate(String phoneNo) {
+    public static boolean phoneNumberValidate(String phoneNo) {
         if(phoneNo == null)
             return false;
 
@@ -29,7 +34,7 @@ public class signupValidation {
     }
 
 
-    public boolean passwordValidate(String password) {
+    public static boolean passwordValidate(String password) {
         if(password == null)
             return false;
 
@@ -42,19 +47,18 @@ public class signupValidation {
     }
 
 
-    public boolean confirmPasswordValidate(String password , String confirmPassword) {
+    public static boolean confirmPasswordValidate(String password , String confirmPassword) {
         if(confirmPassword == null || password==null)
             return false;
-
-        return password==confirmPassword ;
+        return password.equals(confirmPassword);
     }
 
 
-    public boolean emailValidate(String email) {
+    public static boolean emailValidate(String email) {
         if(email == null)
             return false;
 
-        String regex = "^(.+)@(.+)$";
+        String regex = "^[a-zA-Z0-9.!#$%&'\\+/=?^_`{|}~\\-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+){1,4}$";
 
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(email);
@@ -63,25 +67,19 @@ public class signupValidation {
     }
 
 
-    public boolean countryValidation(String country) {
-
-        return country==null;
+    public static boolean countryValidation(String country) {
+        return country!=null;
     }
 
 
-    public boolean birthdateValidation(String birthdate) {
+    public static boolean birthdateValidation(LocalDate birthdate) {
         if(birthdate == null)
             return false;
-
-        String regex = "^(.+){2}(/)(.+){2}(/)(.+){4}$" ;
-
-        Pattern pattern =Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(birthdate);
-
-        return matcher.matches();
+        if(birthdate.compareTo(LocalDate.now())>-1) return false;
+        return true;
     }
 
-    public boolean genderValidate(String gender ) {
+    public static boolean genderValidate(String gender ) {
 
         return gender == null;
     }
