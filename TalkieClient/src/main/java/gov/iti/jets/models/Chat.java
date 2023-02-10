@@ -1,16 +1,17 @@
 package gov.iti.jets.models;
 
-public class Chat{
-    private int id;
-    public Chat(int id){
-        this.id = id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-    public int getId() {
-        return id;
+import java.io.Serializable;
+
+public class Chat implements Serializable{
+    String chatId;
+
+    public Chat(){}
+    public String getChatId() {
+        return chatId;
     }
 
+    public void setChatId(String chatId) {
+        this.chatId = chatId;
+    }
 
 }

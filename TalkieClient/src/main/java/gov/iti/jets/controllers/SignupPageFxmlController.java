@@ -103,7 +103,7 @@ public class SignupPageFxmlController implements Initializable, FXMLController{
 
         startButton.setOnAction((ActionEvent event)->{
             //RegisterUser
-            if(validateInputData())sendRegistrationRequest();     
+            if(validateInputData())tryRegistration();     
         });
         
         nameTextField.focusedProperty().addListener((obs, oldVal, newVal) -> {
@@ -183,7 +183,7 @@ public class SignupPageFxmlController implements Initializable, FXMLController{
 
     }
 
-    private void sendRegistrationRequest(){
+    private void tryRegistration(){
         String currentUserGender;
         if(maleRadioButton.isSelected())currentUserGender="M";
         else currentUserGender="F";
@@ -197,13 +197,7 @@ public class SignupPageFxmlController implements Initializable, FXMLController{
             RegisterResponse response = authenticationController.register(registerRequest);
             // System.out.println(response);
             if (response.getValidation() == null){
-                CurrentUser.getInstance().setUser(new User(response.getUserName(), response.getPhoneNumber(),
-                        response.getEmail(), response.getPassword(), response.getGender(), response.getCountry(),
-                        response.getBirthDate(), response.getOnlineStatus(), response.getBio(), response.getPicture(),
-                        response.getPictureExtension()));
-                ImageUtils.storeImage(CurrentUser.getInstance().getUser());
-                MainAlignmentController mainAlignmentController = (MainAlignmentController)StageManager.INSTANCE.loadScene("main-alignment");
-                MainPanelManager.INSTANCE.setup(mainAlignmentController.getMainHBox());
+                successfulRegistration(response);
             }else{
                 phoneValidationText.setText(response.getValidation().getPhoneNumberError());
                 emailValidationText.setText(response.getValidation().getEmailError());
@@ -213,6 +207,16 @@ public class SignupPageFxmlController implements Initializable, FXMLController{
         } catch (NotBoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void successfulRegistration(RegisterResponse response){
+        CurrentUser.getInstance().setUser(new User(response.getUserName(), response.getPhoneNumber(),
+                response.getEmail(), response.getPassword(), response.getGender(), response.getCountry(),
+                response.getBirthDate(), response.getOnlineStatus(), response.getBio(), response.getPicture(),
+                response.getPictureExtension()));
+        ImageUtils.storeImage(CurrentUser.getInstance().getUser());
+        MainAlignmentController mainAlignmentController = (MainAlignmentController)StageManager.INSTANCE.loadScene("main-alignment");
+        MainPanelManager.INSTANCE.setup(mainAlignmentController.getMainHBox());
     }
 
     private void validateUsername(){

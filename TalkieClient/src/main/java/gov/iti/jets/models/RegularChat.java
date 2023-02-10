@@ -1,6 +1,7 @@
 package gov.iti.jets.models;
-public class RegularChat {
-    private String chatId;
+
+public class RegularChat extends Chat{
+    
     private User firstParticipantId;
     private User secondParticipantId;
 
@@ -10,13 +11,10 @@ public class RegularChat {
         this.secondParticipantId = secondParticipantId;
     }
 
-    public String getChatId() {
-        return chatId;
-    }
-
-    public void setChatId(String chatId) {
+    public RegularChat(String chatId, User firstParticipantId) {
         this.chatId = chatId;
-    }
+        this.firstParticipantId = firstParticipantId;
+    } 
 
     public void setFirstParticipantId(User firstParticipantId) {
         this.firstParticipantId = firstParticipantId;
@@ -24,5 +22,22 @@ public class RegularChat {
 
     public void setSecondParticipantId(User secondParticipantId) {
         this.secondParticipantId = secondParticipantId;
+    }
+
+    public User getFirstParticipantId() {
+        return firstParticipantId;
+    }
+
+    public User getSecondParticipantId() {
+        return secondParticipantId;
+    }
+
+    @Override
+    public String toString() {
+        return "RegularChat{" +
+                "chatId='" + chatId + '\'' +
+                ", firstParticipantId=" + firstParticipantId +
+                ", secondParticipantId=" + secondParticipantId +
+                '}';
     }
 }

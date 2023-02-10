@@ -1,8 +1,9 @@
 package gov.iti.jets.models;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Messages {
+public class Messages implements Serializable{
     private User author;
     private String chatId;
     private String fontStyle;

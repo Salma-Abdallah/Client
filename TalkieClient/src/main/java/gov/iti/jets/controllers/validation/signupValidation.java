@@ -81,7 +81,7 @@ public class SignupValidation {
 
     public static boolean genderValidate(String gender ) {
 
-        return gender == null;
+        return gender != null;
     }
 
 

@@ -1,8 +1,9 @@
 package gov.iti.jets.models;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 
-public class User {
+public class User implements Serializable{
     private String userName;
     private String phoneNumber;
     private String email;
