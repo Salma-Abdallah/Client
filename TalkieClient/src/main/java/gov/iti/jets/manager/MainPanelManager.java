@@ -3,6 +3,7 @@ package gov.iti.jets.manager;
 // import gov.iti.jets.TalkieClientApplication;
 import gov.iti.jets.controllers.FXMLController;
 import gov.iti.jets.controllers.FXMLControllerFactory;
+import gov.iti.jets.models.Chat;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.HBox;
@@ -17,8 +18,9 @@ public enum MainPanelManager {
     private HBox root;
     private VBox sideBar;
     private VBox contacts;
-    private final Map<String, SplitPane> contentLayouts = new HashMap<>();
-    private final Map<String, FXMLController> controllers = new HashMap<>();
+    private final Map<String, SplitPane> contentsLayouts = new HashMap<>(); ///should be deleted on logout
+    private final Map<String, FXMLController> componentsControllers = new HashMap<>();
+
     public HBox setup(HBox root) {
         if(this.root != null){
             loadContent("default-content");
@@ -26,17 +28,17 @@ public enum MainPanelManager {
         }
         this.root = root;
         try {
-            FXMLLoader loader = new FXMLLoader();
+            FXMLLoader sideBarLoader = new FXMLLoader();
             FXMLController sideBarController = FXMLControllerFactory.getController("side-bar");//////////////////
-            loader.setController(sideBarController);///////////////////
-            sideBar = loader.load(getClass().getClassLoader().getResource("views/components/side-bar.fxml").openStream());////////////////////////////
-            controllers.put("side-bar", sideBarController);
+            sideBarLoader.setController(sideBarController);///////////////////
+            sideBar = sideBarLoader.load(getClass().getClassLoader().getResource("views/components/side-bar.fxml").openStream());////////////////////////////
+            componentsControllers.put("side-bar", sideBarController);
 
-            FXMLLoader loader2 = new FXMLLoader();
+            FXMLLoader messagesPanelLoader = new FXMLLoader();
             FXMLController messagesController = FXMLControllerFactory.getController("message");//////////////////
-            loader2.setController(messagesController);///////////////////
-            contacts = loader2.load(getClass().getClassLoader().getResource("views/components/message.fxml").openStream()); //views/components/message.fxml
-            controllers.put("message", messagesController);
+            messagesPanelLoader.setController(messagesController);///////////////////
+            contacts = messagesPanelLoader.load(getClass().getClassLoader().getResource("views/components/message.fxml").openStream()); //views/components/message.fxml
+            componentsControllers.put("message", messagesController);
 
             loadContent("default-content");///most recent messag!
             root.getChildren().set(0, sideBar);
@@ -51,19 +53,19 @@ public enum MainPanelManager {
         if(root == null){
             throw new RuntimeException("Initialize the root pane first");
         }
-        if(!contentLayouts.containsKey(name)){
+        if(!contentsLayouts.containsKey(name)){
             try {
                 System.out.println("New tab " + name);
                 FXMLLoader loader = new FXMLLoader();
                 FXMLController controller = FXMLControllerFactory.getController(name);
                 loader.setController(controller);
-                System.out.println(getClass().getClassLoader().getResource(String.format("views/content/%s.fxml", name)));
                 SplitPane content = loader.load(getClass().getClassLoader().getResource(String.format("views/content/%s.fxml", name)).openStream());/////////////////
-                if(name=="chatting-panel")
-                contentLayouts.put(name, content);
-                controllers.put(name, controller);
+                
+                // if(name=="chatting-panel") 
+                contentsLayouts.put(name, content);//???????????
+                componentsControllers.put(name, controller);
                 root.getChildren().set(2, content);
-                HBox.setHgrow(root.getChildren().get(2), Priority.ALWAYS);
+                HBox.setHgrow(root.getChildren().get(2), Priority.ALWAYS);//???????????????
                 return controller;
             } catch (IOException e) {
                 e.printStackTrace();
@@ -73,9 +75,9 @@ public enum MainPanelManager {
         }
         else{
             System.out.println("Same Tab " +  name);
-            root.getChildren().set(2, contentLayouts.get(name));
+            root.getChildren().set(2, contentsLayouts.get(name));
             HBox.setHgrow(root.getChildren().get(2), Priority.ALWAYS);
-            return controllers.get(name);
+            return componentsControllers.get(name);
         }
     }
     public VBox getSideBar() {
@@ -84,4 +86,9 @@ public enum MainPanelManager {
     public VBox getContacts() {
         return contacts;
     }
+    // public void loadChatInfo(Chat chat){
+    //     if(componentsControllers.containsKey("chatting-panel")){
+
+    //     }
+    // }
 }

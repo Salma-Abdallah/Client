@@ -1,6 +1,7 @@
 package gov.iti.jets.models;
 
 public class RegularChat extends Chat{
+    private static final long serialVersionUID = 5887637195618767821L;
     
     private User firstParticipantId;
     private User secondParticipantId;

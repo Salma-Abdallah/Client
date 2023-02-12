@@ -11,5 +11,5 @@ public interface UserController extends Remote {
 
     User edit(User user) throws RemoteException;
 
-    void sendMessage(MessageController messageController) throws RemoteException;
+    void sendMessage(CallBackController messageController) throws RemoteException;
 }

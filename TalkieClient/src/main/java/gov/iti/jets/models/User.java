@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 
 public class User implements Serializable{
+    private static final long serialVersionUID = 3425388182302811873L;
+    
     private String userName;
     private String phoneNumber;
     private String email;

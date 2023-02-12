@@ -3,7 +3,8 @@ package gov.iti.jets.dto.requests;
 import java.io.Serializable;
 
 public class GetChatsRequest implements Serializable{
-    private static final long serialVersionUID = -0000000000000L;/////////to be ditted
+    private static final long serialVersionUID = -4561991490072553009L;
+
     private String phoneNumber;
 
     public GetChatsRequest(){}

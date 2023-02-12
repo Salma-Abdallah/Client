@@ -103,7 +103,17 @@ public class SignupPageFxmlController implements Initializable, FXMLController{
 
         startButton.setOnAction((ActionEvent event)->{
             //RegisterUser
-            if(validateInputData())tryRegistration();     
+            if(validateInputData()){
+                RegisterResponse response = tryRegistration();
+                if (response.getValidation() == null){
+                    storeCurrentUserData(response);
+                    MainAlignmentController mainAlignmentController = (MainAlignmentController)StageManager.INSTANCE.loadScene("main-alignment");
+                    MainPanelManager.INSTANCE.setup(mainAlignmentController.getMainHBox());
+                }else{
+                    phoneValidationText.setText(response.getValidation().getPhoneNumberError());
+                    emailValidationText.setText(response.getValidation().getEmailError());
+                }  
+            }  
         });
         
         nameTextField.focusedProperty().addListener((obs, oldVal, newVal) -> {
@@ -141,9 +151,7 @@ public class SignupPageFxmlController implements Initializable, FXMLController{
         FemaleRadioButton.setOnAction((ActionEvent event)-> genderValidationText.setText(""));
     }
 
-    private void setCountryComboBox(){
-        // ComboBox<String> countryComboBox2 = new ComboBox<String>();
-        
+    private void setCountryComboBox(){        
         String[] countries  = Locale.getISOCountries();
         ObservableList<String> countryList = FXCollections.observableArrayList();
         for (String countryCode : countries ) {
@@ -151,9 +159,6 @@ public class SignupPageFxmlController implements Initializable, FXMLController{
             countryList.add(obj.getDisplayCountry());
         }
         countryComboBox.setItems(countryList);
-
-        // countryComboBox = countryComboBox2;
-
     }
 
     private boolean validateInputData(){
@@ -183,7 +188,7 @@ public class SignupPageFxmlController implements Initializable, FXMLController{
 
     }
 
-    private void tryRegistration(){
+    private RegisterResponse tryRegistration(){
         String currentUserGender;
         if(maleRadioButton.isSelected())currentUserGender="M";
         else currentUserGender="F";
@@ -196,12 +201,7 @@ public class SignupPageFxmlController implements Initializable, FXMLController{
             AuthenticationController authenticationController = (AuthenticationController) NetworkManager.getRegistry().lookup("AuthenticationController");
             RegisterResponse response = authenticationController.register(registerRequest);
             // System.out.println(response);
-            if (response.getValidation() == null){
-                successfulRegistration(response);
-            }else{
-                phoneValidationText.setText(response.getValidation().getPhoneNumberError());
-                emailValidationText.setText(response.getValidation().getEmailError());
-            }
+            return response;
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         } catch (NotBoundException e) {
@@ -209,14 +209,12 @@ public class SignupPageFxmlController implements Initializable, FXMLController{
         }
     }
 
-    private void successfulRegistration(RegisterResponse response){
+    private void storeCurrentUserData(RegisterResponse response){
         CurrentUser.getInstance().setUser(new User(response.getUserName(), response.getPhoneNumber(),
                 response.getEmail(), response.getPassword(), response.getGender(), response.getCountry(),
                 response.getBirthDate(), response.getOnlineStatus(), response.getBio(), response.getPicture(),
                 response.getPictureExtension()));
         ImageUtils.storeImage(CurrentUser.getInstance().getUser());
-        MainAlignmentController mainAlignmentController = (MainAlignmentController)StageManager.INSTANCE.loadScene("main-alignment");
-        MainPanelManager.INSTANCE.setup(mainAlignmentController.getMainHBox());
     }
 
     private void validateUsername(){

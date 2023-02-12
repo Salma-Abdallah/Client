@@ -1,11 +1,15 @@
 package gov.iti.jets;
 
+import gov.iti.jets.dto.requests.GetMessagesRequest;
 import gov.iti.jets.dto.requests.LoginRequest;
 import gov.iti.jets.dto.requests.RegisterRequest;
+import gov.iti.jets.dto.responses.GetMessagesResponse;
 import gov.iti.jets.dto.responses.LoginResponse;
 import gov.iti.jets.dto.responses.RegisterResponse;
 import gov.iti.jets.manager.StageManager;
+import gov.iti.jets.models.Chat;
 import gov.iti.jets.network.controllers.AuthenticationController;
+import gov.iti.jets.network.controllers.MessageController;
 import gov.iti.jets.network.controllers.UserController;
 import gov.iti.jets.network.manager.NetworkManager;
 import gov.iti.jets.utils.EncryptionUtil;

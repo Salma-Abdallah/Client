@@ -4,10 +4,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox fx:id="mainHBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="mainHBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox fx:id="sidebar" minWidth="-Infinity" prefWidth="60.0" />
-      <VBox fx:id="contactsBar" minWidth="-Infinity" prefWidth="230.0" />
+      <VBox fx:id="contactsBar" minWidth="-Infinity" prefWidth="200.0" />
       <SplitPane fx:id="contentSplitPane" dividerPositions="0.5" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
          <items>
             <VBox fx:id="contentVBox" alignment="CENTER" minWidth="-Infinity" prefWidth="470.0" />

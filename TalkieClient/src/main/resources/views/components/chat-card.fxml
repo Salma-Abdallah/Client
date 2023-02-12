@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<HBox fx:id="chatHBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="chatImageView" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/default_user.png" />
+         </image>
+      </ImageView>
+      <VBox prefHeight="200.0" HBox.hgrow="ALWAYS">
+         <children>
+            <Label fx:id="chatNameLabel" text="ChatName22">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="latestMessageLabel" text="latestMessage" />
+         </children>
+         <HBox.margin>
+            <Insets left="5.0" />
+         </HBox.margin>
+      </VBox>
+      <VBox alignment="TOP_CENTER">
+         <children>
+            <Label fx:id="latestMessageTimeLabel" text="25:55">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin></Label>
+            <Label fx:id="numberOfUnreadMessages" style="-fx-background-color: #549BAD; -fx-background-radius: 30;" text="999" textFill="WHITE">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets left="3.0" right="3.0" />
+               </padding>
+            </Label>
+            <Circle fx:id="chatStatusCircle" fill="DODGERBLUE" radius="5.0" stroke="BLACK" strokeType="INSIDE">
+               <VBox.margin>
+                  <Insets top="3.0" />
+               </VBox.margin>
+            </Circle>
+         </children>
+         <HBox.margin>
+            <Insets left="5.0" right="2.0" />
+         </HBox.margin>
+      </VBox>
+   </children>
+</HBox>

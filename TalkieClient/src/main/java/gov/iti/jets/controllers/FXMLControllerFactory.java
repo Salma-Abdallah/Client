@@ -18,11 +18,13 @@ public class FXMLControllerFactory {
         }else if(controller.equals("main-alignment")){
             return new MainAlignmentController();
         }else if(controller.equals("message")){
-            return new MessageController();
+            return new MessageControllerFXML();
         }else if(controller.equals("side-bar")){
             return new sideBarController();
         }else if(controller.equals("default-content")){
             return new DefaultContentController();
+        }else if(controller.equals("chatting-panel")){
+            return new ChattingPanelController();
         }
         // Add controllers here whenever you add a new layout to be loaded
         return null;

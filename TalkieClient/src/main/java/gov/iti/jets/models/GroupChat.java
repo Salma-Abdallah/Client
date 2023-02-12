@@ -3,6 +3,7 @@ package gov.iti.jets.models;
 import java.util.List;
 
 public class GroupChat extends Chat{
+    private static final long serialVersionUID = 5887637195618767821L;
 
     private User owner;
     private String name;

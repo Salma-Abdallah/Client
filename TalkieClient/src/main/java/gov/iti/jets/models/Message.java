@@ -3,7 +3,9 @@ package gov.iti.jets.models;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Messages implements Serializable{
+public class Message implements Serializable{
+    private static final long serialVersionUID = 4609424488795724384L;
+    
     private User author;
     private String chatId;
     private String fontStyle;
@@ -17,7 +19,7 @@ public class Messages implements Serializable{
     private String content;
     private String fileUrl;
 
-    public Messages(User author, String chatId, String fontStyle, String fontColor, double fontSize, boolean bold,
+    public Message(User author, String chatId, String fontStyle, String fontColor, double fontSize, boolean bold,
                     boolean italic, boolean underlined, String textBackground,
                     Timestamp sentAt, String content, String fileUrl) {
         this.author = author;
