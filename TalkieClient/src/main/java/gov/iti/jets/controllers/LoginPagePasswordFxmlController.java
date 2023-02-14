@@ -3,6 +3,7 @@ package gov.iti.jets.controllers;
 import java.io.*;
 import java.net.URL;
 import java.security.KeyStore;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import gov.iti.jets.manager.MainPanelManager;
@@ -42,6 +43,26 @@ public class LoginPagePasswordFxmlController implements Initializable, FXMLContr
         submitButton.setOnAction((ActionEvent event)->{
             //set current user password after hashing from passwordTextField.getText()
             //validate password
+            Properties prop = new Properties();
+//            OutputStream output = null;
+            try {
+//                output = new FileOutputStream("autoLogin.properties");
+                prop.setProperty("PassWord",passwordTextField.getText());
+                prop.store(LoginPageUsernameFxmlController.output, null);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } finally {
+                if(LoginPageUsernameFxmlController.output != null);
+                try {
+                    LoginPageUsernameFxmlController.output.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+
             MainAlignmentController mainAlignmentController = (MainAlignmentController)StageManager.INSTANCE.loadScene("main-alignment");
             MainPanelManager.INSTANCE.setup(mainAlignmentController.getMainHBox());
             FileWriter file = null;

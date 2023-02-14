@@ -16,6 +16,9 @@ public class TalkieClientApplication extends Application {
         StageManager.INSTANCE.initStage(stage);
         StageManager.INSTANCE.loadScene("welcome");
 
+
+
+
         // stage.setTitle("Home");
         // Parent home = FXMLLoader.load(getClass().getResource("/views/notification.fxml"));
         // Scene scene = new Scene(home);
