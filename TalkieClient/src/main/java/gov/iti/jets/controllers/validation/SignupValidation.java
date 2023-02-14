@@ -12,7 +12,7 @@ public class SignupValidation {
     public static boolean userNameValidate(String name) {
         if (name == null)
             return false;
-        
+
         String regex = "^[A-Za-z0-9]{6,}$";
 
         Pattern pattern = Pattern.compile(regex);
@@ -83,6 +83,4 @@ public class SignupValidation {
 
         return gender != null;
     }
-
-
 }

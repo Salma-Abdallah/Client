@@ -44,19 +44,19 @@ public class LoginPageUsernameFxmlController implements Initializable, FXMLContr
             StageManager.INSTANCE.loadScene("welcome");
         });
 
-        nextLabel.setOnMouseClicked((MouseEvent event)->{
-            //set current user uswername from phoneNoTextField.getText()
-            //validate username exists
-            Properties prop = new Properties();
-
-            try {
-                output = new FileOutputStream("autoLogin.properties");
-                prop.setProperty("phoneNumber",phoneNoTextField.getText());
-                prop.store(output, null);
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+        nextLabel.setOnMouseClicked((MouseEvent event)-> {
+                    //set current user uswername from phoneNoTextField.getText()
+                    //validate username exists
+//            Properties prop = new Properties();
+//
+//            try {
+//                output = new FileOutputStream("autoLogin.properties");
+//                prop.setProperty("phoneNumber",phoneNoTextField.getText());
+//                prop.store(output, null);
+//            } catch (FileNotFoundException e) {
+//                throw new RuntimeException(e);
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
 //            } finally {
 //                if(output != null);
 //                try {
@@ -64,7 +64,7 @@ public class LoginPageUsernameFxmlController implements Initializable, FXMLContr
 //                } catch (IOException e) {
 //                    throw new RuntimeException(e);
 //                }
-            }
+//            }
 
             StageManager.INSTANCE.loadScene("login-page-password");
             CurrentUser.getInstance().getUser().setPhoneNumber(phoneNoTextField.getText());
@@ -72,4 +72,7 @@ public class LoginPageUsernameFxmlController implements Initializable, FXMLContr
         
     }
 
+    public TextField getPhoneNoTextField() {
+        return phoneNoTextField;
+    }
 }

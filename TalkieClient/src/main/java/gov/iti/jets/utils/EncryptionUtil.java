@@ -19,7 +19,7 @@ public class EncryptionUtil {
     private static final String ENCRYPTION_ALGORITHM = props.getProperty("ENCRYPTION_ALGORITHM");
 
 
-    public static String encrypt(String data) {
+    public static String encrypt (String data) {
         byte[] encryptedValue = null;
 
         try {

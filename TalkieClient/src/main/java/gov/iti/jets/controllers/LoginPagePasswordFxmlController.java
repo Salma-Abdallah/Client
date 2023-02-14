@@ -1,14 +1,9 @@
 package gov.iti.jets.controllers;
 
-import java.io.*;
 import java.net.URL;
-
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
-
-import java.util.Properties;
-
 import java.util.ResourceBundle;
 
 import gov.iti.jets.dto.responses.LoginResponse;
@@ -17,12 +12,12 @@ import gov.iti.jets.manager.StageManager;
 import gov.iti.jets.models.CurrentUser;
 import gov.iti.jets.models.User;
 import gov.iti.jets.network.controllers.AuthenticationController;
+import gov.iti.jets.network.controllers.impl.CallBackControllerSingleton;
 import gov.iti.jets.network.manager.NetworkManager;
 import gov.iti.jets.utils.EncryptionUtil;
 import gov.iti.jets.utils.ImageUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -47,16 +42,25 @@ public class LoginPagePasswordFxmlController implements Initializable, FXMLContr
     @FXML
     private Button submitButton;
 
+    @FXML
+    private Label loginFailedMessageLabel;
+
+    // @FXML
+    // void initialize() {
+
+    // }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+        loginFailedMessageLabel.setText("");
+
         previousButton.setOnMouseClicked((MouseEvent event)->{
             StageManager.INSTANCE.loadScene("login-page-username");
         });
+
         submitButton.setOnAction((ActionEvent event)->{
             //set current user password after hashing from passwordTextField.getText()
             //validate password
-
             String password = EncryptionUtil.encrypt(passwordTextField.getText());
 
             LoginRequest loginRequest = new LoginRequest(CurrentUser.getInstance().getUser().getPhoneNumber(), password);
@@ -66,6 +70,7 @@ public class LoginPagePasswordFxmlController implements Initializable, FXMLContr
                 LoginResponse response = authenticationController.login(loginRequest);
                 System.out.println(response);
                 if (response != null){
+                    loginFailedMessageLabel.setText("");
                     CurrentUser.getInstance().setUser(new User(response.getUserName(), response.getPhoneNumber(),
                             response.getEmail(), response.getPassword(), response.getGender(), response.getCountry(),
                             response.getBirthDate(), response.getOnlineStatus(), response.getBio(), response.getPicture(),
@@ -73,41 +78,15 @@ public class LoginPagePasswordFxmlController implements Initializable, FXMLContr
                     ImageUtils.storeImage(CurrentUser.getInstance().getUser());
                     MainAlignmentController mainAlignmentController = (MainAlignmentController)StageManager.INSTANCE.loadScene("main-alignment");
                     MainPanelManager.INSTANCE.setup(mainAlignmentController.getMainHBox());
+                    CallBackControllerSingleton.getInstance().checkServerAvailability();
+                }else{
+                    loginFailedMessageLabel.setText("PhoneNumber or Password Incorrect");
                 }
             } catch (RemoteException e) {
                 throw new RuntimeException(e);
             } catch (NotBoundException e) {
                 throw new RuntimeException(e);
             }
-
-            Properties prop = new Properties();
-//            OutputStream output = null;
-            try {
-//                output = new FileOutputStream("autoLogin.properties");
-                prop.setProperty("PassWord",passwordTextField.getText());
-                prop.store(LoginPageUsernameFxmlController.output, null);
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } finally {
-                if(LoginPageUsernameFxmlController.output != null);
-                try {
-                    LoginPageUsernameFxmlController.output.close();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-
-
-            MainAlignmentController mainAlignmentController = (MainAlignmentController)StageManager.INSTANCE.loadScene("main-alignment");
-            MainPanelManager.INSTANCE.setup(mainAlignmentController.getMainHBox());
-            FileWriter file = null;
-
-
-
         });
-
     }
-
 }
