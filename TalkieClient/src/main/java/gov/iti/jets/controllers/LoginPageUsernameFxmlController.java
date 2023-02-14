@@ -1,6 +1,11 @@
 package gov.iti.jets.controllers;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URL;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import gov.iti.jets.manager.StageManager;
@@ -24,7 +29,7 @@ public class LoginPageUsernameFxmlController implements Initializable, FXMLContr
 
     @FXML
     private TextField phoneNoTextField;
-
+    static OutputStream output = null;
     @FXML
     private Label previousLabel;
 
@@ -42,6 +47,25 @@ public class LoginPageUsernameFxmlController implements Initializable, FXMLContr
         nextLabel.setOnMouseClicked((MouseEvent event)->{
             //set current user uswername from phoneNoTextField.getText()
             //validate username exists
+            Properties prop = new Properties();
+
+            try {
+                output = new FileOutputStream("autoLogin.properties");
+                prop.setProperty("phoneNumber",phoneNoTextField.getText());
+                prop.store(output, null);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+//            } finally {
+//                if(output != null);
+//                try {
+//                    output.close();
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+            }
+
             StageManager.INSTANCE.loadScene("login-page-password");
             CurrentUser.getInstance().getUser().setPhoneNumber(phoneNoTextField.getText());
         });

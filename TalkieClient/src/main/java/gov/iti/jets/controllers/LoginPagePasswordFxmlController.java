@@ -1,9 +1,14 @@
 package gov.iti.jets.controllers;
 
+import java.io.*;
 import java.net.URL;
+
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
+
+import java.util.Properties;
+
 import java.util.ResourceBundle;
 
 import gov.iti.jets.dto.responses.LoginResponse;
@@ -17,6 +22,7 @@ import gov.iti.jets.utils.EncryptionUtil;
 import gov.iti.jets.utils.ImageUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -41,20 +47,16 @@ public class LoginPagePasswordFxmlController implements Initializable, FXMLContr
     @FXML
     private Button submitButton;
 
-    // @FXML
-    // void initialize() {
-        
-    // }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         previousButton.setOnMouseClicked((MouseEvent event)->{
             StageManager.INSTANCE.loadScene("login-page-username");
         });
-
         submitButton.setOnAction((ActionEvent event)->{
             //set current user password after hashing from passwordTextField.getText()
             //validate password
+
             String password = EncryptionUtil.encrypt(passwordTextField.getText());
 
             LoginRequest loginRequest = new LoginRequest(CurrentUser.getInstance().getUser().getPhoneNumber(), password);
@@ -78,8 +80,34 @@ public class LoginPagePasswordFxmlController implements Initializable, FXMLContr
                 throw new RuntimeException(e);
             }
 
+            Properties prop = new Properties();
+//            OutputStream output = null;
+            try {
+//                output = new FileOutputStream("autoLogin.properties");
+                prop.setProperty("PassWord",passwordTextField.getText());
+                prop.store(LoginPageUsernameFxmlController.output, null);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } finally {
+                if(LoginPageUsernameFxmlController.output != null);
+                try {
+                    LoginPageUsernameFxmlController.output.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+
+            MainAlignmentController mainAlignmentController = (MainAlignmentController)StageManager.INSTANCE.loadScene("main-alignment");
+            MainPanelManager.INSTANCE.setup(mainAlignmentController.getMainHBox());
+            FileWriter file = null;
+
+
+
         });
-        
+
     }
 
 }
