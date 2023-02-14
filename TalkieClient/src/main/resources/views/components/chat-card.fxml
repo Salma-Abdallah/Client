@@ -29,7 +29,7 @@
             <Insets left="5.0" />
          </HBox.margin>
       </VBox>
-      <VBox alignment="TOP_CENTER">
+      <VBox alignment="TOP_RIGHT">
          <children>
             <Label fx:id="latestMessageTimeLabel" text="25:55">
                <VBox.margin>
@@ -43,9 +43,9 @@
                   <Insets left="3.0" right="3.0" />
                </padding>
             </Label>
-            <Circle fx:id="chatStatusCircle" fill="DODGERBLUE" radius="5.0" stroke="BLACK" strokeType="INSIDE">
+            <Circle fx:id="chatStatusCircle" fill="LIME" radius="7.0" stroke="BLACK" strokeType="INSIDE">
                <VBox.margin>
-                  <Insets top="3.0" />
+                  <Insets right="1.0" top="1.0" />
                </VBox.margin>
             </Circle>
          </children>

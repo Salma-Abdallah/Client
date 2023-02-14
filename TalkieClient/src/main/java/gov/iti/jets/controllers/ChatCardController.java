@@ -63,11 +63,12 @@ public class ChatCardController implements Initializable, FXMLController{
     private boolean isRegular;
     private RegularChat regularchat;
     private GroupChat groupChat;
+    private Integer unseenMessagesCount;
 
-    private List<Message> messagesList;
+    // private List<Message> messagesList;
     private final Map<String, MessageCardController> messageControllerList = new HashMap<>(); 
     private final Map<String, HBox> messagessLayouts = new HashMap<>(); 
-    private Message latestMessage;
+    private Message latestMessage = null;
     Timestamp latestMessageTimeStamp = new Timestamp(0);
     
 
@@ -87,13 +88,13 @@ public class ChatCardController implements Initializable, FXMLController{
         isRegular = false; 
     }
 
-    public List<Message> getMessagesList() {
-        return messagesList;
-    }
+    // public List<Message> getMessagesList() {
+    //     return messagesList;
+    // }
 
-    public void setMessagesList(List<Message> messagesList) {
-        this.messagesList = messagesList;
-    }
+    // public void setMessagesList(List<Message> messagesList) {
+    //     this.messagesList = messagesList;
+    // }
 
     public Chat getChat() {
         if(isRegular)return regularchat;
@@ -107,6 +108,10 @@ public class ChatCardController implements Initializable, FXMLController{
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         // TODO Auto-generated method stub
+        latestMessageTimeLabel.setText("");
+        latestMessageLabel.setText("");
+        numberOfUnreadMessages.setVisible(false);
+
         if(isRegular)displayRegularChatInfo(regularchat);
         else displayGroupChatInfo(groupChat);
 
@@ -119,27 +124,22 @@ public class ChatCardController implements Initializable, FXMLController{
 
         });
 
+        loadOldMessages();
+        
+    }
+
+    private void loadOldMessages(){
+        unseenMessagesCount = 0;
         try {
             MessageController messageController = (MessageController) NetworkManager.getRegistry().lookup("MessageController");
             GetMessagesResponse response = messageController.getAllMessages(new GetMessagesRequest(isRegular?regularchat:groupChat));
             response.getMessageList().forEach((x)->addMessage(x));
-            response.getMessageList().forEach(System.out::println);
-            // System.out.println("TRIED to PULL MESSAGES!!!!!!!!!!!!");
-            // GetMessagesResponse response3 = messageController.getAllMessages(new GetMessagesRequest(new Chat("83734688-1d3c-4943-8c86-21b1e72af8ae")));
-            // response3.getMessageList().forEach(System.out::println);
+            // response.getMessageList().forEach(System.out::println);
         } catch (RemoteException e ) {
             e.printStackTrace();
         } catch (NotBoundException e){
             e.printStackTrace();
         }
-
-        if(latestMessage!=null){
-            latestMessageLabel.setText(latestMessage.getContent());
-            SimpleDateFormat dateFormat;
-            if(Timestamp.valueOf(LocalDateTime.now()).getTime() - latestMessage.getSentAt().getTime() < 86_400_000) dateFormat = new SimpleDateFormat("HH:mm");
-            else  dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            latestMessageTimeLabel.setText(dateFormat.format(latestMessage.getSentAt()));
-        }else latestMessageTimeLabel.setText("");
     }
 
     private void displayRegularChatInfo(RegularChat chat){
@@ -148,21 +148,23 @@ public class ChatCardController implements Initializable, FXMLController{
 
         ByteArrayInputStream inStreambj = new ByteArrayInputStream(chat.getFirstParticipantId().getPicture());
         chatImageView.setImage(new Image(inStreambj)); 
-        chatStatusCircle.setRadius(0); /////to be changed for status
+
+        // chatStatusCircle.setRadius(0); /////to be changed for status
     }
 
     private void displayGroupChatInfo(GroupChat chat){
         chatNameLabel.setText(chat.getName()); 
         chatStatusCircle.setRadius(0);
         chatImageView.setImage(new Image(getClass().getClassLoader().getResource("images/default_user.png").toString())); 
-        //To BE Modified when adding Group chat Image;
+        //TODO Modify when adding Group chat Image;
     }
     
-    private void addMessage(Message message){
+    public void addMessage(Message message){
         if(message.getSentAt().compareTo(latestMessageTimeStamp)>0){
             latestMessage = message;
             latestMessageTimeStamp = message.getSentAt();
         }
+        if(!message.isSeen())unseenMessagesCount+=1;
         try {
             MessageCardController messageCardController = new MessageCardController(message);
             FXMLLoader loader = new FXMLLoader();
@@ -170,10 +172,26 @@ public class ChatCardController implements Initializable, FXMLController{
             loader.setController(messageCardController);
             HBox messageCard = loader.load(getClass().getClassLoader().getResource("views/components/message-card.fxml").openStream());
             messagessLayouts.put(message.getChatId()+message.getSentAt().toString(),messageCard);
+            updateChatCardInfo();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+    public void updateChatCardInfo(){
+        if(!isRegular)System.out.println(groupChat.getName()+latestMessage.getSentAt());
+        latestMessageLabel.setText(latestMessage.getContent());
+        SimpleDateFormat dateFormat;
+        if(Timestamp.valueOf(LocalDateTime.now()).getTime() - latestMessage.getSentAt().getTime() < 86_400_000) dateFormat = new SimpleDateFormat("HH:mm");
+        else  dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        latestMessageTimeLabel.setText(dateFormat.format(latestMessage.getSentAt()));
+        if(unseenMessagesCount>0){
+            numberOfUnreadMessages.setText(Integer.toString(unseenMessagesCount));
+            numberOfUnreadMessages.setVisible(true);
+        }else{
+            numberOfUnreadMessages.setVisible(false);
+        }
     }
     
 }

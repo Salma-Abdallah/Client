@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,9 @@ import gov.iti.jets.network.controllers.ChatController;
 import gov.iti.jets.network.controllers.MessageController;
 import gov.iti.jets.network.manager.NetworkManager;
 import javafx.fxml.Initializable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -62,17 +66,21 @@ public class MessageControllerFXML implements Initializable, FXMLController {
     // private List<Chat> chatsList;
 
     // private List<ChatCardController> chatsControllerList;
-    private final Map<String, ChatCardController> chatsControllerList = new HashMap<>(); 
-    private final Map<String, HBox> contentsLayouts = new HashMap<>(); 
+    private final ObservableMap<String, ChatCardController> chatCardsControllerList = FXCollections.observableHashMap(); 
+    private final ObservableMap<String, HBox> regularChatLayouts = FXCollections.observableHashMap(); 
+    private final ObservableMap<String, HBox> groupChatLayouts = FXCollections.observableHashMap(); 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        //load messagesList()
-        retriveChatsfromDB();
-        displayChats();
+
+        regularChatsVBox.getChildren().addAll(regularChatLayouts.values());
+        groupChatsVBox.getChildren().addAll(groupChatLayouts.values());
+
         regularExpansionPanel.setExpanded(true);
         GroupExpansionPanel.setExpanded(true);
+
+        retriveChatsfromDB();
+        displayChats();
 
     }
 
@@ -85,9 +93,11 @@ public class MessageControllerFXML implements Initializable, FXMLController {
         try {
             chatController = (ChatController) NetworkManager.getRegistry().lookup("ChatController");
             GetChatsResponse response = chatController.getAllChat(new GetChatsRequest(CurrentUser.getInstance().getUser().getPhoneNumber()));
+            
             response.getAllRegularChatsList().forEach((x)-> addRegularChat(x));
             response.getAllGroupChatsList().forEach((x)-> addGroupChat(x));
-
+            
+            
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         } catch (NotBoundException e) {
@@ -95,29 +105,62 @@ public class MessageControllerFXML implements Initializable, FXMLController {
         }
     }
 
-    private void addRegularChat(RegularChat chat){
+    public void addRegularChat(RegularChat chat){
         ChatCardController chatCardController = new ChatCardController(chat);
         HBox chatCard = createChatCard(chatCardController);
-        if(chatCard!=null)regularChatsVBox.getChildren().add(chatCard); 
+        regularChatLayouts.put(chatCardController.getChat().getChatId(),chatCard);
+        // refreshRegularChatVbox();
+        if(chatCard!=null)regularChatsVBox.getChildren().add(1,chatCard); 
     }
-    private void addGroupChat(GroupChat chat){
+    public void addGroupChat(GroupChat chat){
         ChatCardController chatCardController = new ChatCardController(chat);
         HBox chatCard = createChatCard(chatCardController);
-        if(chatCard!=null)groupChatsVBox.getChildren().add(chatCard);
+        groupChatLayouts.put(chatCardController.getChat().getChatId(),chatCard);
+        // refreshGroupChatVbox();
+        if(chatCard!=null)groupChatsVBox.getChildren().add(1,chatCard);
 
     }
     private HBox createChatCard(ChatCardController chatCardController){
         try {
             FXMLLoader loader = new FXMLLoader();
-            chatsControllerList.put(chatCardController.getChat().getChatId(),chatCardController);
+            chatCardsControllerList.put(chatCardController.getChat().getChatId(),chatCardController);
             loader.setController(chatCardController);
             HBox chatCard = loader.load(getClass().getClassLoader().getResource("views/components/chat-card.fxml").openStream());
-            contentsLayouts.put(chatCardController.getChat().getChatId(),chatCard);
             return chatCard;
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
     }
-       
+    // private void updateChatCard(String chatId){
+    //     if(regularChatLayouts.get(chatId)!=null){
+    //         chatCardsControllerList.get(chatId).updateChatCardInfo();
+    //     }
+    //     if(groupChatLayouts.get(chatId)!=null){
+    //         chatCardsControllerList.get(chatId).updateChatCardInfo();
+    //     }
+    // }
+
+    public void riseChatCard(String chatId){
+        if(regularChatLayouts.get(chatId)!=null){
+            regularChatsVBox.getChildren().remove(regularChatLayouts.get(chatId));
+            regularChatsVBox.getChildren().add(1,regularChatLayouts.get(chatId));
+        }
+        if(groupChatLayouts.get(chatId)!=null){
+            groupChatsVBox.getChildren().remove(groupChatLayouts.get(chatId));
+            groupChatsVBox.getChildren().add(1,groupChatLayouts.get(chatId));
+        }
+    }
+
+    public ChatCardController getChatCardController(String ChatId){
+        return chatCardsControllerList.get(ChatId);
+    }
+    // private void refreshRegularChatVbox(){
+    //     regularChatsVBox.getChildren().removeAll(groupChatLayouts.values());
+    //     regularChatsVBox.getChildren().addAll(groupChatLayouts.values());
+    // }
+    // private void refreshGroupChatVbox(){
+    //     groupChatsVBox.getChildren().removeAll(groupChatLayouts.values());
+    //     groupChatsVBox.getChildren().addAll(groupChatLayouts.values());
+    // }  
 }

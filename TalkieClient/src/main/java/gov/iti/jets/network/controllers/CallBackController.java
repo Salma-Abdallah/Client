@@ -3,9 +3,8 @@ package gov.iti.jets.network.controllers;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public interface CallBackController extends Remote {
+public interface CallbackController extends Remote {
 
-    void send() throws RemoteException;
-    void receive() throws RemoteException;
+    void respond() throws RemoteException;
 
 }

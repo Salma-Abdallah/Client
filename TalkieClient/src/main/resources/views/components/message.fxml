@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="TOP_CENTER" minWidth="-Infinity" prefWidth="240.0" style="-fx-background-color: FFFBEB;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" minWidth="-Infinity" prefWidth="270.0" style="-fx-background-color: FFFBEB;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #adc5c5;">
          <children>
@@ -61,7 +61,7 @@
                 <items>
                     <ExpansionPanel fx:id="regularExpansionPanel">
                      <collapsedContent>
-                        <Label fx:id="onlineContact" prefHeight="45.0" prefWidth="230.0" style="-fx-background-radius: 0; -fx-background-color: #87AAAA;" text="   Contacts" textFill="WHITE">
+                        <Label fx:id="onlineContact" prefHeight="45.0" prefWidth="260.0" style="-fx-background-radius: 0; -fx-background-color: #87AAAA;" text="   Contacts" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -70,7 +70,7 @@
                      <expandedContent>
                         <VBox fx:id="regularChatsVBox">
                            <children>
-                              <Label fx:id="onlineContact1" prefHeight="30.0" prefWidth="230.0" style="-fx-background-radius: 0; -fx-background-color: #87AAAA;" text="   Contacts" textFill="WHITE">
+                              <Label fx:id="onlineContact1" prefHeight="30.0" prefWidth="260.0" style="-fx-background-radius: 0; -fx-background-color: #87AAAA;" text="   Contacts" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -83,7 +83,7 @@
                      <expandedContent>
                         <VBox fx:id="groupChatsVBox">
                            <children>
-                              <Label fx:id="OfflineContacts1" prefHeight="30.0" prefWidth="230.0" style="-fx-background-color: #C8E3D4; -fx-background-radius: 0;" text="   Groups" textFill="WHITE">
+                              <Label fx:id="OfflineContacts1" prefHeight="30.0" prefWidth="260.0" style="-fx-background-color: #C8E3D4; -fx-background-radius: 0;" text="   Groups" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -92,7 +92,7 @@
                         </VBox>
                      </expandedContent>
                      <collapsedContent>
-                        <Label fx:id="OfflineContacts" prefHeight="45.0" prefWidth="230.0" style="-fx-background-color: #C8E3D4; -fx-background-radius: 0;" text="   Groups" textFill="WHITE">
+                        <Label fx:id="OfflineContacts" prefHeight="45.0" prefWidth="260.0" style="-fx-background-color: #C8E3D4; -fx-background-radius: 0;" text="   Groups" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>

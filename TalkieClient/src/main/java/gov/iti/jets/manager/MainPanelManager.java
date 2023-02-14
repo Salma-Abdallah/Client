@@ -3,6 +3,7 @@ package gov.iti.jets.manager;
 // import gov.iti.jets.TalkieClientApplication;
 import gov.iti.jets.controllers.FXMLController;
 import gov.iti.jets.controllers.FXMLControllerFactory;
+import gov.iti.jets.controllers.MessageControllerFXML;
 import gov.iti.jets.models.Chat;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.SplitPane;
@@ -86,6 +87,11 @@ public enum MainPanelManager {
     public VBox getContacts() {
         return contacts;
     }
+
+    public MessageControllerFXML getMessageController(){
+        return (MessageControllerFXML)componentsControllers.get("message");
+    }
+    
     // public void loadChatInfo(Chat chat){
     //     if(componentsControllers.containsKey("chatting-panel")){
 

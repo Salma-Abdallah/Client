@@ -15,6 +15,7 @@ import gov.iti.jets.manager.StageManager;
 import gov.iti.jets.models.CurrentUser;
 import gov.iti.jets.models.User;
 import gov.iti.jets.network.controllers.AuthenticationController;
+import gov.iti.jets.network.controllers.impl.CallBackControllerSingleton;
 import gov.iti.jets.network.manager.NetworkManager;
 import gov.iti.jets.utils.EncryptionUtil;
 import gov.iti.jets.utils.ImageUtils;
@@ -109,6 +110,8 @@ public class SignupPageFxmlController implements Initializable, FXMLController{
                     storeCurrentUserData(response);
                     MainAlignmentController mainAlignmentController = (MainAlignmentController)StageManager.INSTANCE.loadScene("main-alignment");
                     MainPanelManager.INSTANCE.setup(mainAlignmentController.getMainHBox());
+                    CallBackControllerSingleton.getInstance().checkServerAvailability();
+
                 }else{
                     phoneValidationText.setText(response.getValidation().getPhoneNumberError());
                     emailValidationText.setText(response.getValidation().getEmailError());

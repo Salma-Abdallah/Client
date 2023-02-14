@@ -3,9 +3,9 @@ package gov.iti.jets.models;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Message implements Serializable{
+public class Message implements Serializable {
     private static final long serialVersionUID = 4609424488795724384L;
-    
+    private Integer id;
     private User author;
     private String chatId;
     private String fontStyle;
@@ -18,10 +18,12 @@ public class Message implements Serializable{
     private Timestamp sentAt;
     private String content;
     private String fileUrl;
+    private boolean seen;
 
-    public Message(User author, String chatId, String fontStyle, String fontColor, double fontSize, boolean bold,
-                    boolean italic, boolean underlined, String textBackground,
-                    Timestamp sentAt, String content, String fileUrl) {
+    public Message(Integer id, User author, String chatId, String fontStyle, String fontColor, double fontSize, boolean bold,
+                   boolean italic, boolean underlined, String textBackground,
+                   Timestamp sentAt, String content, String fileUrl, boolean seen) {
+        this.id = id;
         this.author = author;
         this.chatId = chatId;
         this.fontStyle = fontStyle;
@@ -34,6 +36,33 @@ public class Message implements Serializable{
         this.sentAt = sentAt;
         this.content = content;
         this.fileUrl = fileUrl;
+        this.seen = seen;
+    }
+
+    public Message(User author, String chatId, String fontStyle, String fontColor, double fontSize, boolean bold,
+                   boolean italic, boolean underlined, String textBackground, Timestamp sentAt,
+                   String content, String fileUrl, boolean seen) {
+        this.author = author;
+        this.chatId = chatId;
+        this.fontStyle = fontStyle;
+        this.fontColor = fontColor;
+        this.fontSize = fontSize;
+        this.bold = bold;
+        this.italic = italic;
+        this.underlined = underlined;
+        this.textBackground = textBackground;
+        this.sentAt = sentAt;
+        this.content = content;
+        this.fileUrl = fileUrl;
+        this.seen = seen;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public User getAuthor() {
@@ -130,5 +159,33 @@ public class Message implements Serializable{
 
     public void setFileUrl(String fileUrl) {
         this.fileUrl = fileUrl;
+    }
+
+    public boolean isSeen() {
+        return seen;
+    }
+
+    public void setSeen(boolean seen) {
+        this.seen = seen;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "id=" + id +
+                ", author=" + author +
+                ", chatId='" + chatId + '\'' +
+                ", fontStyle='" + fontStyle + '\'' +
+                ", fontColor='" + fontColor + '\'' +
+                ", fontSize=" + fontSize +
+                ", bold=" + bold +
+                ", italic=" + italic +
+                ", underlined=" + underlined +
+                ", textBackground='" + textBackground + '\'' +
+                ", sentAt=" + sentAt +
+                ", content='" + content + '\'' +
+                ", fileUrl='" + fileUrl + '\'' +
+                ", seen='" + seen + '\'' +
+                '}';
     }
 }
