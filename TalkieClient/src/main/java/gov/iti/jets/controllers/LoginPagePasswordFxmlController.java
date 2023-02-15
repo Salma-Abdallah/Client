@@ -1,6 +1,9 @@
 package gov.iti.jets.controllers;
 
+import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
@@ -44,6 +47,8 @@ public class LoginPagePasswordFxmlController implements Initializable, FXMLContr
 
     @FXML
     private Label loginFailedMessageLabel;
+    static CashingUser cashingUser;
+
 
     // @FXML
     // void initialize() {
@@ -57,9 +62,19 @@ public class LoginPagePasswordFxmlController implements Initializable, FXMLContr
         previousButton.setOnMouseClicked((MouseEvent event)->{
             StageManager.INSTANCE.loadScene("login-page-username");
         });
+        CashingUser cashingUser1 = deserialize();
+        if(cashingUser1 != null){
+            passwordTextField.setText(cashingUser1.getPassWord());
 
+        }else{
+            serialize();
+        }
         submitButton.setOnAction((ActionEvent event)->{
+
+
             loginPassword();
+
+
         });
 
         passwordTextField.setOnAction((ActionEvent event)->{
@@ -68,8 +83,6 @@ public class LoginPagePasswordFxmlController implements Initializable, FXMLContr
 
     }
     private void loginPassword(){
-        //set current user password after hashing from passwordTextField.getText()
-        //validate password
         String password = EncryptionUtil.encrypt(passwordTextField.getText());
 
         LoginRequest loginRequest = new LoginRequest(CurrentUser.getInstance().getUser().getPhoneNumber(), password);
@@ -80,6 +93,8 @@ public class LoginPagePasswordFxmlController implements Initializable, FXMLContr
             System.out.println(response);
             if (response != null){
                 loginFailedMessageLabel.setText("");
+                String hashPassWord = EncryptionUtil.encrypt(passwordTextField.getText());
+                cashingUser= new CashingUser(response.getPhoneNumber(),hashPassWord);
                 CurrentUser.getInstance().setUser(new User(response.getUserName(), response.getPhoneNumber(),
                         response.getEmail(), response.getPassword(), response.getGender(), response.getCountry(),
                         response.getBirthDate(), response.getOnlineStatus(), response.getBio(), response.getPicture(),
@@ -96,5 +111,35 @@ public class LoginPagePasswordFxmlController implements Initializable, FXMLContr
         } catch (NotBoundException e) {
             throw new RuntimeException(e);
         }
+        serialize();
     }
+    public static void serialize() {
+        try (ObjectOutputStream objOStream1 = new ObjectOutputStream(new FileOutputStream("serialPassWord"))) {
+            objOStream1.writeObject(cashingUser);
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public static CashingUser deserialize() {
+        CashingUser object2 = null;
+        boolean exists = Files.exists(Path.of("serialPassWord"));
+        if (exists) {
+            try (ObjectInputStream objIStrm = new ObjectInputStream(new
+                    FileInputStream("serialPassWord"))) {
+                object2 = (CashingUser) objIStrm.readObject();
+                String decPassword = EncryptionUtil.decrypt(object2.getPassWord());
+                CashingUser cashingUser = new CashingUser(object2.getPhoneNumber(), decPassword);
+                return cashingUser;
+            } catch (Exception e) {
+                System.out.println("Exception during deserialization: " + e);
+            }
+        }
+        return object2;
+    }
+
 }

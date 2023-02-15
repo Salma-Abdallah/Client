@@ -92,26 +92,23 @@ public class sideBarController implements Initializable, FXMLController{
 
         sideBar_logout_view.setOnMouseClicked((MouseEvent event)->{
             StageManager.INSTANCE.loadScene("welcome");
-//            File file = new File("serial");
-//            OutputStream out = null;
-//            try {
-//                out = new FileOutputStream(file, false);
-//            } catch (FileNotFoundException e) {
-//                throw new RuntimeException(e);
-//            }
-//
-//            if (!file.delete()) {
-//                try {
-//                    throw new IOException("Unable to delete file: " + file.getAbsolutePath());
-//                } catch (IOException e) {
-//                    throw new RuntimeException(e);
-//                }
-//            }
+            File file = new File("serialPassWord");
+            OutputStream out = null;
+            try {
+                out = new FileOutputStream(file, false);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+            if (!file.delete()) {
+                try {
+                    throw new IOException("Unable to delete file: " + file.getAbsolutePath());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
 
         });
 
-
-        
     }
 
     public void statusComboBoxImageFactory(){

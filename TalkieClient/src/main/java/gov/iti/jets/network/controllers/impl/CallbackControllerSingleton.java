@@ -5,12 +5,10 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import gov.iti.jets.manager.MainPanelManager;
-import gov.iti.jets.models.Chat;
 import gov.iti.jets.models.CurrentUser;
 import gov.iti.jets.models.GroupChat;
 import gov.iti.jets.models.Message;
 import gov.iti.jets.models.RegularChat;
-import gov.iti.jets.models.User;
 import gov.iti.jets.network.controllers.CallbackController;
 import gov.iti.jets.network.controllers.OnlineStatusController;
 import gov.iti.jets.network.manager.NetworkManager;
