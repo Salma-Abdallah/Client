@@ -27,15 +27,20 @@ import javafx.fxml.Initializable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class MessageControllerFXML implements Initializable, FXMLController {  
+public class MessageControllerFXML implements Initializable, FXMLController { 
+    @FXML
+    private VBox mainVBox;
     // @FXML
     // private Label OfflineContacts;
 
@@ -46,7 +51,7 @@ public class MessageControllerFXML implements Initializable, FXMLController {
     // private Label onlineContact;
 
     @FXML
-    private TextField search_chat;
+    private TextField addGroupChat;
 
     @FXML
     private ExpansionPanel regularExpansionPanel;
@@ -63,6 +68,7 @@ public class MessageControllerFXML implements Initializable, FXMLController {
     @FXML
     private VBox groupChatsVBox;
 
+    private Boolean  addGroupFieldVisible = false;
     // private List<Chat> chatsList;
 
     // private List<ChatCardController> chatsControllerList;
@@ -80,18 +86,35 @@ public class MessageControllerFXML implements Initializable, FXMLController {
         GroupExpansionPanel.setExpanded(true);
 
         retriveChatsfromDB();
-        displayChats();
+        // displayChats();
+
+        mainVBox.getChildren().remove(addGroupChat);
+        
+        creating_group.setOnMouseClicked((MouseEvent event)->{
+            if(!addGroupFieldVisible){
+                addGroupFieldVisible=true;
+                mainVBox.getChildren().add(1,addGroupChat);
+                creating_group.setImage(new Image(getClass().getClassLoader().getResource("images/expanded.png").toString()));
+            }else{
+                addGroupFieldVisible=false;
+                mainVBox.getChildren().remove(addGroupChat);
+                creating_group.setImage(new Image(getClass().getClassLoader().getResource("images/group_add.png").toString()));
+            }
+        });
+
+        addGroupChat.setOnAction((ActionEvent event)->{
+            //
+        });
 
     }
 
-    private void displayChats(){
+    // private void displayChats(){
 
-    }
+    // }
 
     private void retriveChatsfromDB(){
-        ChatController chatController;
         try {
-            chatController = (ChatController) NetworkManager.getRegistry().lookup("ChatController");
+            ChatController chatController = (ChatController) NetworkManager.getRegistry().lookup("ChatController");
             GetChatsResponse response = chatController.getAllChat(new GetChatsRequest(CurrentUser.getInstance().getUser().getPhoneNumber()));
             
             response.getAllRegularChatsList().forEach((x)-> addRegularChat(x));
@@ -154,6 +177,9 @@ public class MessageControllerFXML implements Initializable, FXMLController {
 
     public ChatCardController getChatCardController(String ChatId){
         return chatCardsControllerList.get(ChatId);
+    }
+    public void updateChatStatus(String chatId, String status){
+        chatCardsControllerList.get(chatId).updateChatCardStatus(status);
     }
     // private void refreshRegularChatVbox(){
     //     regularChatsVBox.getChildren().removeAll(groupChatLayouts.values());

@@ -10,14 +10,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="235.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="196.0" prefWidth="200.0" style="-fx-background-color: #83BDC0;">
          <children>
             <HBox alignment="TOP_CENTER" maxWidth="170.0" prefHeight="23.0" prefWidth="200.0" style="-fx-background-color: #adc5c5;">
                <children>
-                  <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="userImage" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/account_circle.png" />
                      </image>
@@ -32,7 +31,7 @@
             </HBox>
             <HBox alignment="CENTER" maxWidth="170.0" prefHeight="23.0" prefWidth="200.0" style="-fx-background-color: #adc5c5;">
                <children>
-                  <Text fill="#001f3f" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+                  <Text fx:id="NameLabel" fill="#001f3f" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -44,7 +43,7 @@
                   <Insets />
                </VBox.margin>
                <children>
-                  <Text fill="#001f3f" strokeType="OUTSIDE" strokeWidth="0.0" text="phone Number">
+                  <Text fx:id="phoneNumberLabel" fill="#001f3f" strokeType="OUTSIDE" strokeWidth="0.0" text="phone Number">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -52,21 +51,25 @@
                </children>
             </HBox>
             <Pane maxHeight="27.0" maxWidth="170.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #adc5c5;" />
-            <HBox alignment="CENTER_LEFT" maxWidth="170.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #adc5c5;">
+            <HBox fx:id="ButtonsHBox" alignment="CENTER" maxWidth="170.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #adc5c5;">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
                <children>
+                  <Pane HBox.hgrow="ALWAYS" />
                   <Button fx:id="acceptreq" mnemonicParsing="false" style="-fx-background-color: #001F3F;" text="accept" textFill="WHITE">
                      <HBox.margin>
-                        <Insets left="20.0" />
+                        <Insets />
                      </HBox.margin>
                   </Button>
+                  <Pane fx:id="middlespacePane" HBox.hgrow="ALWAYS" />
                   <Button fx:id="rejectReq" mnemonicParsing="false" style="-fx-background-color: #001F3F;" text="reject" textFill="WHITE">
                      <HBox.margin>
-                        <Insets left="30.0" />
+                        <Insets />
                      </HBox.margin>
                   </Button>
+                  <Button fx:id="CancelSentFriendReqButton" mnemonicParsing="false" style="-fx-background-color: #001F3F;" text="Cancel" textFill="WHITE" />
+                  <Pane HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
          </children>

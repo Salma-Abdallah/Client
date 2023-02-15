@@ -12,7 +12,7 @@ import gov.iti.jets.manager.StageManager;
 import gov.iti.jets.models.CurrentUser;
 import gov.iti.jets.models.User;
 import gov.iti.jets.network.controllers.AuthenticationController;
-import gov.iti.jets.network.controllers.impl.CallBackControllerSingleton;
+import gov.iti.jets.network.controllers.impl.CallbackControllerSingleton;
 import gov.iti.jets.network.manager.NetworkManager;
 import gov.iti.jets.utils.EncryptionUtil;
 import gov.iti.jets.utils.ImageUtils;
@@ -59,34 +59,42 @@ public class LoginPagePasswordFxmlController implements Initializable, FXMLContr
         });
 
         submitButton.setOnAction((ActionEvent event)->{
-            //set current user password after hashing from passwordTextField.getText()
-            //validate password
-            String password = EncryptionUtil.encrypt(passwordTextField.getText());
-
-            LoginRequest loginRequest = new LoginRequest(CurrentUser.getInstance().getUser().getPhoneNumber(), password);
-            try {
-
-                AuthenticationController authenticationController = (AuthenticationController) NetworkManager.getRegistry().lookup("AuthenticationController");
-                LoginResponse response = authenticationController.login(loginRequest);
-                System.out.println(response);
-                if (response != null){
-                    loginFailedMessageLabel.setText("");
-                    CurrentUser.getInstance().setUser(new User(response.getUserName(), response.getPhoneNumber(),
-                            response.getEmail(), response.getPassword(), response.getGender(), response.getCountry(),
-                            response.getBirthDate(), response.getOnlineStatus(), response.getBio(), response.getPicture(),
-                            response.getPictureExtension()));
-                    ImageUtils.storeImage(CurrentUser.getInstance().getUser());
-                    MainAlignmentController mainAlignmentController = (MainAlignmentController)StageManager.INSTANCE.loadScene("main-alignment");
-                    MainPanelManager.INSTANCE.setup(mainAlignmentController.getMainHBox());
-                    CallBackControllerSingleton.getInstance().checkServerAvailability();
-                }else{
-                    loginFailedMessageLabel.setText("PhoneNumber or Password Incorrect");
-                }
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
-            } catch (NotBoundException e) {
-                throw new RuntimeException(e);
-            }
+            loginPassword();
         });
+
+        passwordTextField.setOnAction((ActionEvent event)->{
+            loginPassword();
+        });
+
+    }
+    private void loginPassword(){
+        //set current user password after hashing from passwordTextField.getText()
+        //validate password
+        String password = EncryptionUtil.encrypt(passwordTextField.getText());
+
+        LoginRequest loginRequest = new LoginRequest(CurrentUser.getInstance().getUser().getPhoneNumber(), password);
+        try {
+
+            AuthenticationController authenticationController = (AuthenticationController) NetworkManager.getRegistry().lookup("AuthenticationController");
+            LoginResponse response = authenticationController.login(loginRequest);
+            System.out.println(response);
+            if (response != null){
+                loginFailedMessageLabel.setText("");
+                CurrentUser.getInstance().setUser(new User(response.getUserName(), response.getPhoneNumber(),
+                        response.getEmail(), response.getPassword(), response.getGender(), response.getCountry(),
+                        response.getBirthDate(), response.getOnlineStatus(), response.getBio(), response.getPicture(),
+                        response.getPictureExtension()));
+                ImageUtils.storeImage(CurrentUser.getInstance().getUser());
+                MainAlignmentController mainAlignmentController = (MainAlignmentController)StageManager.INSTANCE.loadScene("main-alignment");
+                MainPanelManager.INSTANCE.setup(mainAlignmentController.getMainHBox());
+                CallbackControllerSingleton.getInstance().checkServerAvailability();
+            }else{
+                loginFailedMessageLabel.setText("PhoneNumber or Password Incorrect");
+            }
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        } catch (NotBoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

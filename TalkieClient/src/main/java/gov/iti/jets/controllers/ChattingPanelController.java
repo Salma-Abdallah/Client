@@ -2,26 +2,45 @@ package gov.iti.jets.controllers;
 
 import java.io.ByteArrayInputStream;
 import java.net.URL;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import gov.iti.jets.dto.requests.SendMessageRequest;
+import gov.iti.jets.dto.responses.SendMessageResponse;
 import gov.iti.jets.models.Chat;
+import gov.iti.jets.models.CurrentUser;
 import gov.iti.jets.models.RegularChat;
 import gov.iti.jets.models.User;
+import gov.iti.jets.network.controllers.MessageController;
+import gov.iti.jets.network.manager.NetworkManager;
 import gov.iti.jets.models.RegularChat;
 import gov.iti.jets.models.GroupChat;
+import gov.iti.jets.models.Message;
 import javafx.fxml.Initializable;
+import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 
 public class ChattingPanelController implements Initializable, FXMLController{
     @FXML
@@ -46,70 +65,34 @@ public class ChattingPanelController implements Initializable, FXMLController{
     private Button videoCallButton;
 
     @FXML
-    private ImageView videoCallButtonImageView;
-
-    @FXML
     private Button voiceCallButton;
-
-    @FXML
-    private ImageView voiceCallButtonImageView;
 
     @FXML
     private Button moreButton;
 
     @FXML
-    private ImageView moreButtonImageView;
-
-    @FXML
     private VBox messagesContainerVBox;
 
     @FXML
-    private ChoiceBox<?> textFontButton;
+    private ComboBox<String> textFontComboBox;
 
     @FXML
-    private ChoiceBox<?> textSizeChoiceBox;
+    private ComboBox<Integer> textSizeComboBox;
 
     @FXML
-    private Button textBoldButton;
+    private ToggleButton textBoldToggleButton;
 
     @FXML
-    private ImageView textBoldButtonImageView;
+    private ToggleButton textItalicToggleButton;
 
     @FXML
-    private Button textItalicButton;
+    private ToggleButton textUnderlineToggleButton;
 
     @FXML
-    private ImageView textItalicButtonImageView;
-
-    @FXML
-    private Button textUnderlineButton;
-
-    @FXML
-    private ImageView textUnderlineButtonImageView;
-
-    @FXML
-    private Button textColorButton;
-
-    @FXML
-    private ImageView textColorButtonImageView;
-
-    @FXML
-    private Button textbackgroundColorButton;
-
-    @FXML
-    private ImageView textbackgroundColorButtonImageView;
-
-    @FXML
-    private Button emojiButton;
-
-    @FXML
-    private ImageView emojiButtonImageView;
+    private ColorPicker textColorPicker;
 
     @FXML
     private Button attachmentButton;
-
-    @FXML
-    private ImageView attachmentButtonImageView;
 
     @FXML
     private TextField typingTextField;
@@ -118,16 +101,13 @@ public class ChattingPanelController implements Initializable, FXMLController{
     private Button voiceNoteButton;
 
     @FXML
-    private ImageView voiceNoteButtonImageView;
-
-    @FXML
     private Button sendButton;
 
-    @FXML
-    private ImageView sendButtonImageView;
 
     private Chat chat;
-    private List<HBox> messagesHBoxList; 
+    private List<HBox> messagesHBoxList;
+    private Message newMessage;
+    private Font messageFont = new Font("Comic Sans MS",12);
     
     public Chat getChat() {
         return chat;
@@ -140,7 +120,98 @@ public class ChattingPanelController implements Initializable, FXMLController{
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-               
+        String fonts[] = {"Verdana", "Helvetica", "Times New Roman", "Comic Sans MS", "Impact", "Lucida Sans Unicode"};
+        textFontComboBox.setItems(FXCollections.observableArrayList(fonts));
+
+        Integer fontSizes[] = {8,10,12,14,16,20};
+        textSizeComboBox.setItems(FXCollections.observableArrayList(fontSizes));
+
+        resetMessageFormating();
+
+        textFontComboBox.setOnAction((ActionEvent event)->{
+            newMessage.setFontStyle(textFontComboBox.getValue());
+            updateMessageFont();  
+        });
+
+        textSizeComboBox.setOnAction((ActionEvent event)->{
+            newMessage.setFontSize(textSizeComboBox.getValue());
+            updateMessageFont();
+        });
+
+        textBoldToggleButton.setOnAction((ActionEvent event)->{
+            if(textBoldToggleButton.isSelected())newMessage.setBold(true);
+            if(!textBoldToggleButton.isSelected())newMessage.setBold(false);
+            updateMessageFont();
+        });
+
+        textItalicToggleButton.setOnAction((ActionEvent event)->{
+            if(textItalicToggleButton.isSelected())newMessage.setItalic(true);
+            if(!textItalicToggleButton.isSelected())newMessage.setItalic(false);
+            updateMessageFont();
+        });
+
+        textUnderlineToggleButton.setOnAction((ActionEvent event)->{
+            if(textUnderlineToggleButton.isSelected())newMessage.setUnderlined(true);
+            if(!textUnderlineToggleButton.isSelected())newMessage.setUnderlined(false);
+            updateMessageFont();
+        });
+
+        textColorPicker.setOnAction((ActionEvent event)->{
+            newMessage.setFontColor(textColorPicker.getValue().toString());
+            System.out.println(textColorPicker.getValue().toString());
+            typingTextField.setStyle(String.format("-fx-background-radius: 15; -fx-text-fill: #%s;", textColorPicker.getValue().toString().substring(2)));
+            updateMessageFont();
+        });
+
+        sendButton.setOnAction((ActionEvent event)->{
+            sendNewMessage();
+        });
+        typingTextField.setOnAction((ActionEvent event)->{
+            sendNewMessage();
+        });
+    }
+    private void sendNewMessage(){
+        newMessage.setContent(typingTextField.getText());
+        try {
+            MessageController messageController = (MessageController) NetworkManager.getRegistry().lookup("MessageController");
+            SendMessageResponse response = messageController.sendMessage(new SendMessageRequest(newMessage));
+            //TODO if(response.getMessage() == null) display servererror message
+        } catch (RemoteException | NotBoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+    }
+    private void resetMessageFormating(){
+        textSizeComboBox.setValue(12);
+        textFontComboBox.setValue("Comic Sans MS");
+        textBoldToggleButton.setSelected(false);
+        textItalicToggleButton.setSelected(false);
+        textUnderlineToggleButton.setSelected(false);
+        textColorPicker.setValue(Color.BLACK);
+        typingTextField.setStyle("-fx-background-radius: 15;");
+    }
+    public void initiateChattingService(){
+        typingTextField.setText("");
+        instantiateNewMessage();
+    }
+    
+    private void updateMessageFont(){
+        messageFont = Font.font(newMessage.getFontStyle()
+            ,newMessage.isBold()?FontWeight.BOLD:FontWeight.NORMAL
+            ,newMessage.isItalic()?FontPosture.ITALIC:FontPosture.REGULAR
+            ,newMessage.getFontSize());
+        typingTextField.fontProperty().set(messageFont);
+    }
+
+    private void instantiateNewMessage(){
+        newMessage = new Message(null, CurrentUser.getInstance().getUser()
+                                , chat.getChatId()
+                                , textFontComboBox.getValue()
+                                , textColorPicker.getValue().toString()
+                                , textSizeComboBox.getValue()
+                                , textBoldToggleButton.isSelected(), textItalicToggleButton.isSelected(), textUnderlineToggleButton.isSelected()
+                                , null, Timestamp.valueOf(LocalDateTime.now()), null, null, false);
     }
 
     public void setupChatInfo (){
@@ -154,12 +225,12 @@ public class ChattingPanelController implements Initializable, FXMLController{
 
     private void setupRegularChatInfo(RegularChat chat){
 
-        chatNameLabel.setText(chat.getFirstParticipantId().getUserName()); 
+        chatNameLabel.setText(chat.getFirstParticipant().getUserName()); 
 
-        ByteArrayInputStream inStreambj = new ByteArrayInputStream(chat.getFirstParticipantId().getPicture());
+        ByteArrayInputStream inStreambj = new ByteArrayInputStream(chat.getFirstParticipant().getPicture());
         chatImageView.setImage(new Image(inStreambj)); 
 
-        chatNumbersLabel.setText(chat.getFirstParticipantId().getPhoneNumber());
+        chatNumbersLabel.setText(chat.getFirstParticipant().getPhoneNumber());
 
     }
 
@@ -188,5 +259,7 @@ public class ChattingPanelController implements Initializable, FXMLController{
         //     messagesContainerVBox.getChildren().add(messageHBox);
         // }
     }
+
+
 
 }

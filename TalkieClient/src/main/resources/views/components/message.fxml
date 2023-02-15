@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="TOP_CENTER" minWidth="-Infinity" prefWidth="270.0" style="-fx-background-color: FFFBEB;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="mainVBox" alignment="TOP_CENTER" minWidth="-Infinity" prefWidth="270.0" style="-fx-background-color: FFFBEB;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #adc5c5;">
          <children>
@@ -50,7 +50,7 @@
             </ImageView>
          </children>
       </HBox>
-      <TextField id="search a chat" fx:id="search_chat" blendMode="MULTIPLY" maxHeight="1.7976931348623157E308" minHeight="35.0" mouseTransparent="true" promptText="search chats..." style="-fx-background-radius: 10;">
+      <TextField id="search a chat" fx:id="addGroupChat" blendMode="MULTIPLY" maxHeight="1.7976931348623157E308" minHeight="35.0" mouseTransparent="true" promptText="Type Group Name then press Enter..." style="-fx-background-radius: 10;">
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </VBox.margin>

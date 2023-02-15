@@ -17,14 +17,14 @@ import gov.iti.jets.network.manager.NetworkManager;
 import javafx.application.Platform;
 import gov.iti.jets.controllers.*;
 
-public class CallBackControllerSingleton extends UnicastRemoteObject implements CallbackController {
-    private static CallBackControllerSingleton instance;
+public class CallbackControllerSingleton extends UnicastRemoteObject implements CallbackController {
+    private static CallbackControllerSingleton instance;
     private static boolean isServerConnected = false;
-    private CallBackControllerSingleton() throws RemoteException {}
-    public static CallBackControllerSingleton getInstance(){
+    private CallbackControllerSingleton() throws RemoteException {}
+    public static CallbackControllerSingleton getInstance(){
         try {
             if(instance == null){
-                instance = new CallBackControllerSingleton();
+                instance = new CallbackControllerSingleton();
             }
         } catch (RemoteException e) {
             throw new RuntimeException(e);
@@ -50,7 +50,7 @@ public class CallBackControllerSingleton extends UnicastRemoteObject implements 
                         OnlineStatusController userController = (OnlineStatusController) NetworkManager.getRegistry().lookup("OnlineStatusController");
                         userController.connect(
                                 CurrentUser.getInstance().getUser(),
-                                CallBackControllerSingleton.getInstance());
+                                CallbackControllerSingleton.getInstance());
                     } catch (RemoteException e) {
                         System.out.println("Reconnection Failed...");
                     } catch (NotBoundException e) {
@@ -66,6 +66,7 @@ public class CallBackControllerSingleton extends UnicastRemoteObject implements 
         }).start();
     }
 
+    @Override
     public void receiveNewMessage(Message message){
         Platform.runLater(() -> {
             MainPanelManager.INSTANCE.getMessageController().getChatCardController(message.getChatId()).addMessage(message);
@@ -73,18 +74,47 @@ public class CallBackControllerSingleton extends UnicastRemoteObject implements 
         }); 
     }
 
+    @Override
     public void createNewRegularChat(RegularChat chat){
         //Used when a friend request sent by me is accepted, or when a person i sent a friend request to sends me one
         Platform.runLater(() -> {
+            FriendRequestsController friendRequestsController = MainPanelManager.INSTANCE.getFriendRequestsController();
+            if(friendRequestsController!=null){
+                friendRequestsController.deleteFRCard(chat.getFirstParticipant().getPhoneNumber());
+            }
             MainPanelManager.INSTANCE.getMessageController().addRegularChat(chat);
         });
     }
 
-    public void addMetoGroupChat(GroupChat chat){
+    //TODO////////////////
+    @Override
+    public void friendOnlineStatus(String chatId, String status){
+        Platform.runLater(() -> {
+            MainPanelManager.INSTANCE.getMessageController().updateChatStatus(chatId, status);
+        });
+    }
+    //TODO////////////////
+    @Override
+    public void addNewFriendRequest(){}
+
+
+    @Override
+    public void addCurrentUserToGroupChat(GroupChat chat) throws RemoteException {
+        // TODO Auto-generated method stub
         //Used when some one adds me to an existing groupChat
         Platform.runLater(() -> {
             MainPanelManager.INSTANCE.getMessageController().addGroupChat(chat);
         });
+        
     }
+
+    
+    //TODO////////////////
+    @Override
+    public void broadcastNotification() throws RemoteException {
+        // TODO Auto-generated method stub
+        
+    }
+
 
 }

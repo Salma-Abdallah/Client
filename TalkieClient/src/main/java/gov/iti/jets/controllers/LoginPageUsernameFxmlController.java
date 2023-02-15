@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 
 import gov.iti.jets.manager.StageManager;
 import gov.iti.jets.models.CurrentUser;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -45,34 +46,41 @@ public class LoginPageUsernameFxmlController implements Initializable, FXMLContr
         });
 
         nextLabel.setOnMouseClicked((MouseEvent event)-> {
-                    //set current user uswername from phoneNoTextField.getText()
-                    //validate username exists
-//            Properties prop = new Properties();
-//
-//            try {
-//                output = new FileOutputStream("autoLogin.properties");
-//                prop.setProperty("phoneNumber",phoneNoTextField.getText());
-//                prop.store(output, null);
-//            } catch (FileNotFoundException e) {
-//                throw new RuntimeException(e);
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            } finally {
-//                if(output != null);
-//                try {
-//                    output.close();
-//                } catch (IOException e) {
-//                    throw new RuntimeException(e);
-//                }
-//            }
+            loginUserName();
+        });
 
-            StageManager.INSTANCE.loadScene("login-page-password");
-            CurrentUser.getInstance().getUser().setPhoneNumber(phoneNoTextField.getText());
+        phoneNoTextField.setOnAction((ActionEvent event)->{
+            loginUserName();
         });
         
     }
 
     public TextField getPhoneNoTextField() {
         return phoneNoTextField;
+    }
+    private void loginUserName(){
+                                    //set current user uswername from phoneNoTextField.getText()
+                            //validate username exists
+        //            Properties prop = new Properties();
+        //
+        //            try {
+        //                output = new FileOutputStream("autoLogin.properties");
+        //                prop.setProperty("phoneNumber",phoneNoTextField.getText());
+        //                prop.store(output, null);
+        //            } catch (FileNotFoundException e) {
+        //                throw new RuntimeException(e);
+        //            } catch (IOException e) {
+        //                throw new RuntimeException(e);
+        //            } finally {
+        //                if(output != null);
+        //                try {
+        //                    output.close();
+        //                } catch (IOException e) {
+        //                    throw new RuntimeException(e);
+        //                }
+        //            }
+
+        StageManager.INSTANCE.loadScene("login-page-password");
+        CurrentUser.getInstance().getUser().setPhoneNumber(phoneNoTextField.getText());
     }
 }

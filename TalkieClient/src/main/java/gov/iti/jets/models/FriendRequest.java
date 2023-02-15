@@ -1,8 +1,10 @@
 package gov.iti.jets.models;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class FriendRequest {
+public class FriendRequest implements Serializable {
+    private static final long serialVersionUID = 3946396403679141704L;
 
     private User senderId;
     private User receiverId;

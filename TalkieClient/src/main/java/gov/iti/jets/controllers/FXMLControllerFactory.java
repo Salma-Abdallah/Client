@@ -25,6 +25,8 @@ public class FXMLControllerFactory {
             return new DefaultContentController();
         }else if(controller.equals("chatting-panel")){
             return new ChattingPanelController();
+        }else if(controller.equals("friend-request")){
+            return new FriendRequestsController();
         }
         // Add controllers here whenever you add a new layout to be loaded
         return null;

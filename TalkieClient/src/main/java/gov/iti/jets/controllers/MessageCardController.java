@@ -2,10 +2,13 @@ package gov.iti.jets.controllers;
 
 import java.io.ByteArrayInputStream;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ResourceBundle;
+
 
 import gov.iti.jets.models.CurrentUser;
 import gov.iti.jets.models.Message;
@@ -17,6 +20,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
@@ -95,12 +102,19 @@ public class MessageCardController implements Initializable, FXMLController{
     }
 
     private void loadMessageData(){
-        
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        SimpleDateFormat dateFormat;
+        if(Timestamp.valueOf(LocalDateTime.now()).getTime() - message.getSentAt().getTime() < 86_400_000) dateFormat = new SimpleDateFormat("HH:mm");
+        else  dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         messageTimeLabel.setText(dateFormat.format(message.getSentAt()));
 
         messageText.setText(message.getContent());
+
+        messageText.setFont(Font.font(message.getFontStyle()
+        ,message.isBold()?FontWeight.BOLD:FontWeight.NORMAL
+        ,message.isItalic()?FontPosture.ITALIC:FontPosture.REGULAR
+        ,message.getFontSize()));
+
+        messageText.setFill(Paint.valueOf(message.getFontColor()));
 
         messageVBox.getChildren().remove(messageAttachmentHBox);
     }

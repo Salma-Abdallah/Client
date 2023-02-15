@@ -3,6 +3,7 @@ package gov.iti.jets.manager;
 // import gov.iti.jets.TalkieClientApplication;
 import gov.iti.jets.controllers.FXMLController;
 import gov.iti.jets.controllers.FXMLControllerFactory;
+import gov.iti.jets.controllers.FriendRequestsController;
 import gov.iti.jets.controllers.MessageControllerFXML;
 import gov.iti.jets.models.Chat;
 import javafx.fxml.FXMLLoader;
@@ -92,6 +93,25 @@ public enum MainPanelManager {
         return (MessageControllerFXML)componentsControllers.get("message");
     }
     
+    public FriendRequestsController getFriendRequestsController(){
+        if(componentsControllers.get("friend-request")!=null)
+            return (FriendRequestsController)componentsControllers.get("friend-request");
+        else {
+            //     FXMLLoader loader = new FXMLLoader();
+            //     FXMLController controller = FXMLControllerFactory.getController("friend-request");
+            // try {
+            //     loader.setController(controller);
+            //     SplitPane content = loader.load(getClass().getClassLoader().getResource("views/content/friend-request.fxml").openStream());
+            //     contentsLayouts.put("friend-request", content);
+            //     componentsControllers.put("friend-request", controller);
+            // } catch (IOException e) {
+            //     // TODO Auto-generated catch block
+            //     e.printStackTrace();
+            // }
+            // return (FriendRequestsController)controller; 
+            return null;   
+        }
+    }
     // public void loadChatInfo(Chat chat){
     //     if(componentsControllers.containsKey("chatting-panel")){
 
