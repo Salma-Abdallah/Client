@@ -6,7 +6,7 @@ import java.rmi.registry.Registry;
 
 public class NetworkManager {
     private static Registry registry;
-    private static int port = 2900;
+    private static int port = 2400;
 
     static {
         try {
