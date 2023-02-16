@@ -30,6 +30,7 @@ public class TalkieClientApplication extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        System.out.println("dsakhfhasdfhjsdfhdsaghffsahdhksdaghfshdafsadfashdfhsafhasdhasjdjhsasfd");
         StageManager.INSTANCE.initStage(stage);
         StageManager.INSTANCE.loadScene("welcome");
 
@@ -48,6 +49,9 @@ public class TalkieClientApplication extends Application {
         // Scene scene = new Scene(home);
         // stage.setScene(scene);
         // stage.setResizable(false);
+        stage.setMinHeight(700);
+        stage.setMinWidth(1050);
+        
 
         stage.show();
     }

@@ -4,18 +4,18 @@ import java.io.Serializable;
 
 public class CreateGroupChatRequest implements Serializable{
     private String userPhoneNumber;
-    private String chatName;
+    private String groupName;
 
     public CreateGroupChatRequest(String userPhoneNumber, String chatName){
         this.userPhoneNumber = userPhoneNumber;
-        this.chatName = chatName;
+        this.groupName = chatName;
     }
 
-    public String getChatName() {
-        return chatName;
+    public String getGroupName() {
+        return groupName;
     }
-    public void setChatName(String chatName) {
-        this.chatName = chatName;
+    public void setGroupName(String chatName) {
+        this.groupName = chatName;
     }
     
     public String getUserPhoneNumber() {
@@ -27,7 +27,7 @@ public class CreateGroupChatRequest implements Serializable{
 
     @Override
     public String toString() {
-        return "CreateGroupChatRequest [userPhoneNumber=" + userPhoneNumber + ", chatName=" + chatName + "]";
+        return "CreateGroupChatRequest [userPhoneNumber=" + userPhoneNumber + ", chatName=" + groupName + "]";
     }
     
 

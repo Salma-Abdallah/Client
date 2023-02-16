@@ -245,6 +245,11 @@ public class FriendRequestsController implements Initializable, FXMLController {
         if(sentFRLayoutsMap.get(friendPhoneNumber)!=null)deleteSentFRCard(friendPhoneNumber);
     }
 
+    public void clearAll(){
+        fRControllerMap.clear();
+        receivedFRLayoutsMap.clear();
+        sentFRLayoutsMap.clear();
+    }
     
     
 }

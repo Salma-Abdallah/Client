@@ -70,11 +70,7 @@ public class LoginPagePasswordFxmlController implements Initializable, FXMLContr
             serialize();
         }
         submitButton.setOnAction((ActionEvent event)->{
-
-
             loginPassword();
-
-
         });
 
         passwordTextField.setOnAction((ActionEvent event)->{

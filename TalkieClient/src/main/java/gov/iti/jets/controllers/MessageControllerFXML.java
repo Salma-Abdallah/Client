@@ -12,8 +12,10 @@ import java.util.ResourceBundle;
 
 import com.gluonhq.charm.glisten.control.ExpansionPanel;
 
+import gov.iti.jets.dto.requests.CreateGroupChatRequest;
 import gov.iti.jets.dto.requests.GetChatsRequest;
 import gov.iti.jets.dto.requests.GetMessagesRequest;
+import gov.iti.jets.dto.responses.CreateGroupChatResponse;
 import gov.iti.jets.dto.responses.GetChatsResponse;
 import gov.iti.jets.dto.responses.GetMessagesResponse;
 import gov.iti.jets.models.Chat;
@@ -94,6 +96,7 @@ public class MessageControllerFXML implements Initializable, FXMLController {
             if(!addGroupFieldVisible){
                 addGroupFieldVisible=true;
                 mainVBox.getChildren().add(1,addGroupChat);
+                addGroupChat.setEditable(true);
                 creating_group.setImage(new Image(getClass().getClassLoader().getResource("images/expanded.png").toString()));
             }else{
                 addGroupFieldVisible=false;
@@ -103,7 +106,16 @@ public class MessageControllerFXML implements Initializable, FXMLController {
         });
 
         addGroupChat.setOnAction((ActionEvent event)->{
-            //
+            if(!addGroupChat.getText().trim().equals("")){
+                try {
+                    ChatController chatController = (ChatController) NetworkManager.getRegistry().lookup("ChatController");
+                    CreateGroupChatResponse response = chatController.createGroupChat(new CreateGroupChatRequest(CurrentUser.getInstance().getUser().getPhoneNumber(), addGroupChat.getText()));
+                    if(response.getNewGroupChat()!=null)addGroupChat((GroupChat)response.getNewGroupChat());
+                } catch (RemoteException | NotBoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
         });
 
     }
@@ -184,6 +196,11 @@ public class MessageControllerFXML implements Initializable, FXMLController {
 
     public String getChatNameByChatId(String chatId){
         return chatCardsControllerList.get(chatId).getChatName();
+    }
+    public void clearAll(){
+        chatCardsControllerList.clear();
+        regularChatLayouts.clear();
+        groupChatLayouts.clear();
     }
 
     // private void refreshRegularChatVbox(){

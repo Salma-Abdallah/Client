@@ -12,6 +12,7 @@ import gov.iti.jets.manager.MainPanelManager;
 import gov.iti.jets.manager.StageManager;
 import gov.iti.jets.models.CurrentUser;
 import gov.iti.jets.network.controllers.OnlineStatusController;
+import gov.iti.jets.network.controllers.impl.CallbackControllerSingleton;
 import gov.iti.jets.network.manager.NetworkManager;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -125,6 +126,14 @@ public class sideBarController implements Initializable, FXMLController{
                 }
             }
 
+            try {
+                OnlineStatusController userController = (OnlineStatusController) NetworkManager.getRegistry().lookup("OnlineStatusController");
+                userController.disconnect(CurrentUser.getInstance().getUser().getPhoneNumber());
+            } catch (RemoteException | NotBoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            StageManager.INSTANCE.setOnClose();
         });
 
     }
