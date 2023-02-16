@@ -1,8 +1,10 @@
 package gov.iti.jets.dto.responses;
 
+import java.io.Serializable;
+
 import gov.iti.jets.models.Message;
 
-public class SendMessageResponse {
+public class SendMessageResponse implements Serializable{
     private Message message;
 
     public SendMessageResponse(Message message) {

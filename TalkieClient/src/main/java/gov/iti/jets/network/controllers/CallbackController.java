@@ -3,9 +3,11 @@ package gov.iti.jets.network.controllers;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
+import gov.iti.jets.models.FriendRequest;
 import gov.iti.jets.models.GroupChat;
 import gov.iti.jets.models.Message;
 import gov.iti.jets.models.RegularChat;
+import gov.iti.jets.models.User;
 
 public interface CallbackController extends Remote {
 
@@ -21,12 +23,11 @@ public interface CallbackController extends Remote {
     // When someone is added to a groupchat this is called so that the group chat appears on this person's panel.
     void addCurrentUserToGroupChat(GroupChat chat) throws RemoteException;
 
+    void createNewFriendRequest(FriendRequest friendRequest) throws RemoteException;
 
-
-    // When a friend request is sent notify the receiver.
-    void addNewFriendRequest() throws RemoteException;
 
     // when a notification is sent on broadcast to all online users.
-    void broadcastNotification() throws RemoteException;
+    void broadcastNotification(String message) throws RemoteException;
 
+    void deleteRecievedFriendRequest(String senderPhoneNumber) throws RemoteException;
 }

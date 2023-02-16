@@ -3,15 +3,14 @@ package gov.iti.jets.dto.requests;
 import java.io.Serializable;
 
 public class RefuseFriendRequest implements Serializable {
-    private String friendPhoneNumber;
-
-    public RefuseFriendRequest(String friendPhoneNumber, String userPhoneNumber) {
-        this.friendPhoneNumber = friendPhoneNumber;
-        this.userPhoneNumber = userPhoneNumber;
-    }
 
     private String userPhoneNumber;
+    private String friendPhoneNumber;
 
+    public RefuseFriendRequest(String userPhoneNumber, String friendPhoneNumber) {
+        this.userPhoneNumber = userPhoneNumber;
+        this.friendPhoneNumber = friendPhoneNumber;
+    }
 
     public String getUserPhoneNumber() {
         return userPhoneNumber;
@@ -32,9 +31,8 @@ public class RefuseFriendRequest implements Serializable {
     @Override
     public String toString() {
         return "RefuseFriendRequest{" +
-                "friendPhoneNumber='" + friendPhoneNumber + '\'' +
-                ", userPhoneNumber='" + userPhoneNumber + '\'' +
+                "userPhoneNumber='" + userPhoneNumber + '\'' +
+                ", friendPhoneNumber='" + friendPhoneNumber + '\'' +
                 '}';
     }
-
 }

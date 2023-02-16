@@ -181,6 +181,11 @@ public class MessageControllerFXML implements Initializable, FXMLController {
     public void updateChatStatus(String chatId, String status){
         chatCardsControllerList.get(chatId).updateChatCardStatus(status);
     }
+
+    public String getChatNameByChatId(String chatId){
+        return chatCardsControllerList.get(chatId).getChatName();
+    }
+
     // private void refreshRegularChatVbox(){
     //     regularChatsVBox.getChildren().removeAll(groupChatLayouts.values());
     //     regularChatsVBox.getChildren().addAll(groupChatLayouts.values());

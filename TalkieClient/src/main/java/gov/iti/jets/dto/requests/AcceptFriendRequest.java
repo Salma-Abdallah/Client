@@ -6,15 +6,14 @@ public class AcceptFriendRequest implements Serializable {
 
 
     private static final long serialVersionUID = -3339255849433394L;
-
-    public AcceptFriendRequest(String friendPhoneNumber, String userPhoneNumber) {
-        this.friendPhoneNumber = friendPhoneNumber;
-        this.userPhoneNumber = userPhoneNumber;
-    }
-    public AcceptFriendRequest(){}
+    private String userPhoneNumber;
     private String friendPhoneNumber;
 
-    private String userPhoneNumber;
+    public AcceptFriendRequest(String userPhoneNumber, String friendPhoneNumber) {
+        this.userPhoneNumber = userPhoneNumber;
+        this.friendPhoneNumber = friendPhoneNumber;
+    }
+
     public String getUserPhoneNumber() {
         return userPhoneNumber;
     }
@@ -31,11 +30,11 @@ public class AcceptFriendRequest implements Serializable {
         this.friendPhoneNumber = friendPhoneNumber;
     }
 
-
+    @Override
     public String toString() {
-        return "AcceptFriendRequest" +
+        return "AcceptFriendRequest{" +
                 "userPhoneNumber='" + userPhoneNumber + '\'' +
-                "friendPhoneNumber='" + friendPhoneNumber + '\'' +
+                ", friendPhoneNumber='" + friendPhoneNumber + '\'' +
                 '}';
     }
 }

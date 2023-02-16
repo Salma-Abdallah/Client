@@ -1,18 +1,25 @@
 package gov.iti.jets.network.controllers.impl;
 
+import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import gov.iti.jets.manager.MainPanelManager;
+import gov.iti.jets.manager.StageManager;
 import gov.iti.jets.models.CurrentUser;
+import gov.iti.jets.models.FriendRequest;
 import gov.iti.jets.models.GroupChat;
 import gov.iti.jets.models.Message;
 import gov.iti.jets.models.RegularChat;
+import gov.iti.jets.models.User;
 import gov.iti.jets.network.controllers.CallbackController;
 import gov.iti.jets.network.controllers.OnlineStatusController;
 import gov.iti.jets.network.manager.NetworkManager;
 import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.Pane;
+import javafx.stage.Popup;
 import gov.iti.jets.controllers.*;
 
 public class CallbackControllerSingleton extends UnicastRemoteObject implements CallbackController {
@@ -89,11 +96,24 @@ public class CallbackControllerSingleton extends UnicastRemoteObject implements 
     public void friendOnlineStatus(String chatId, String status){
         Platform.runLater(() -> {
             MainPanelManager.INSTANCE.getMessageController().updateChatStatus(chatId, status);
+
+            NotificationController notificationController = new NotificationController();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setController(notificationController);
+            try {
+                Pane pane = loader.load(getClass().getClassLoader().getResource("views/components/notification.fxml").openStream());
+                notificationController.setData(MainPanelManager.INSTANCE.getMessageController().getChatNameByChatId(chatId), "just got "+status);
+                Popup popup = new Popup();
+                popup.getContent().add(pane);
+                popup.setAutoHide(true);
+                MainAlignmentController mainAlignmentController = (MainAlignmentController)StageManager.INSTANCE.loadScene("main-alignment");
+                popup.show(mainAlignmentController.getMainHBox(), 0, 0);
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         });
     }
-    //TODO////////////////
-    @Override
-    public void addNewFriendRequest(){}
 
 
     @Override
@@ -103,15 +123,52 @@ public class CallbackControllerSingleton extends UnicastRemoteObject implements 
         Platform.runLater(() -> {
             MainPanelManager.INSTANCE.getMessageController().addGroupChat(chat);
         });
-        
     }
 
     
     //TODO////////////////
     @Override
-    public void broadcastNotification() throws RemoteException {
+    public void broadcastNotification(String message) throws RemoteException {
         // TODO Auto-generated method stub
+        Platform.runLater(() -> {
+            NotificationController notificationController = new NotificationController();
+                FXMLLoader loader = new FXMLLoader();
+                loader.setController(notificationController);
+                try {
+                    Pane pane = loader.load(getClass().getClassLoader().getResource("views/components/notification.fxml").openStream());
+                    notificationController.setData("Adminstration", message);
+                    Popup popup = new Popup();
+                    popup.getContent().add(pane);
+                    popup.setAutoHide(true);
+                    MainAlignmentController mainAlignmentController = (MainAlignmentController)StageManager.INSTANCE.loadScene("main-alignment");
+                    popup.show(mainAlignmentController.getMainHBox(), 0, 0);
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+        });
         
+    }
+    @Override
+    public void createNewFriendRequest(FriendRequest friendRequest) throws RemoteException {
+        // TODO Auto-generated method stub
+        Platform.runLater(() -> {
+            FriendRequestsController controller = MainPanelManager.INSTANCE.getFriendRequestsController();
+            if(controller!=null)controller.addRecievedFriendRequest(friendRequest);
+        });
+    }
+
+    @Override
+    public void deleteRecievedFriendRequest(String senderPhoneNumber) throws RemoteException {
+        // TODO Auto-generated method stub
+        System.out.println(senderPhoneNumber);
+        Platform.runLater(() -> {
+            FriendRequestsController controller = MainPanelManager.INSTANCE.getFriendRequestsController();
+            if(controller!=null){
+                System.out.println("Delete     :"+senderPhoneNumber);
+                controller.deleteFRCard(senderPhoneNumber);
+            }
+        });
     }
 
 

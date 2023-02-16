@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
 import gov.iti.jets.dto.requests.SendMessageRequest;
@@ -31,6 +32,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
@@ -69,6 +71,9 @@ public class ChattingPanelController implements Initializable, FXMLController{
 
     @FXML
     private Button moreButton;
+
+    @FXML
+    private ScrollPane messagesScrollPane;
 
     @FXML
     private VBox messagesContainerVBox;
@@ -169,12 +174,14 @@ public class ChattingPanelController implements Initializable, FXMLController{
         typingTextField.setOnAction((ActionEvent event)->{
             sendNewMessage();
         });
+        messagesContainerVBox.heightProperty().addListener(Observable -> messagesScrollPane.setVvalue(1D));
     }
     private void sendNewMessage(){
         newMessage.setContent(typingTextField.getText());
         try {
             MessageController messageController = (MessageController) NetworkManager.getRegistry().lookup("MessageController");
             SendMessageResponse response = messageController.sendMessage(new SendMessageRequest(newMessage));
+            if(response.getMessage()!=null)typingTextField.setText("");
             //TODO if(response.getMessage() == null) display servererror message
         } catch (RemoteException | NotBoundException e) {
             // TODO Auto-generated catch block

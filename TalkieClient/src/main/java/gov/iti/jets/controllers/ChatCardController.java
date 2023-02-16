@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.TreeMap;
 
 import javax.imageio.ImageIO;
 
@@ -68,8 +69,8 @@ public class ChatCardController implements Initializable, FXMLController{
     ChattingPanelController chattingPanelController = null;
 
     // private List<Message> messagesList;
-    private final Map<String, MessageCardController> messageControllerList = new HashMap<>(); 
-    private final Map<String, HBox> messagessLayouts = new HashMap<>(); 
+    private final Map<Integer, MessageCardController> messageControllerList = new TreeMap<>(); 
+    private final Map<Integer, HBox> messagessLayouts = new TreeMap<>(); 
     private Message latestMessage = null;
     Timestamp latestMessageTimeStamp = new Timestamp(0);
     
@@ -101,6 +102,10 @@ public class ChatCardController implements Initializable, FXMLController{
     public Chat getChat() {
         if(isRegular)return regularchat;
         return groupChat;
+    }
+    public String getChatName(){
+        if(isRegular)return regularchat.getFirstParticipant().getUserName();
+        return groupChat.getName();
     }
 
     // public void setChat(Chat chat) {
@@ -136,6 +141,7 @@ public class ChatCardController implements Initializable, FXMLController{
         try {
             MessageController messageController = (MessageController) NetworkManager.getRegistry().lookup("MessageController");
             GetMessagesResponse response = messageController.getAllMessages(new GetMessagesRequest(isRegular?regularchat:groupChat));
+            // response.getMessageList().forEach(System.out::println);
             response.getMessageList().forEach((x)->addMessage(x));
             // response.getMessageList().forEach(System.out::println);
             
@@ -154,7 +160,7 @@ public class ChatCardController implements Initializable, FXMLController{
         chatImageView.setImage(new Image(inStreambj)); 
 
         updateChatCardStatus(chat.getFirstParticipant().getOnlineStatus());
-        System.out.println(chat.getFirstParticipant().getOnlineStatus());
+        // System.out.println(chat.getFirstParticipant().getOnlineStatus());
         // System.out.println(chat.getSecondParticipant());
         // chatStatusCircle.setRadius(0); /////to be changed for status
     }
@@ -176,10 +182,11 @@ public class ChatCardController implements Initializable, FXMLController{
         try {
             MessageCardController messageCardController = new MessageCardController(message);
             FXMLLoader loader = new FXMLLoader();
-            messageControllerList.put(message.getChatId()+message.getSentAt().toString(),messageCardController);
+            System.out.println(message.getId());
+            messageControllerList.put(message.getId(),messageCardController);
             loader.setController(messageCardController);
             HBox messageCard = loader.load(getClass().getClassLoader().getResource("views/components/message-card.fxml").openStream());
-            messagessLayouts.put(message.getChatId()+message.getSentAt().toString(),messageCard);
+            messagessLayouts.put(message.getId(),messageCard);
             updateChatCardInfo();
             if(chattingPanelController!=null && message.getChatId().equals(chattingPanelController.getChat().getChatId()))chattingPanelController.loadMessages(messagessLayouts.values());
         } catch (IOException e) {
@@ -207,7 +214,7 @@ public class ChatCardController implements Initializable, FXMLController{
         if(status.equals("Available"))chatStatusCircle.setFill(Paint.valueOf("green"));
         if(status.equals("Busy"))chatStatusCircle.setFill(Paint.valueOf("orange"));
         if(status.equals("Away"))chatStatusCircle.setFill(Paint.valueOf("red"));
-        if(status.equals("Offline"))chatStatusCircle.setFill(Paint.valueOf("grey"));
+        if(status.equals("Offline") || status.equals("Invisible"))chatStatusCircle.setFill(Paint.valueOf("grey"));
     }
     
 }

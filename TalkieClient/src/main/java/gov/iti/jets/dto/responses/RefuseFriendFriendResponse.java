@@ -4,25 +4,17 @@ import java.io.Serializable;
 
 public class RefuseFriendFriendResponse implements Serializable {
     private static final long serialVersionUID = -652405811389313082L;
+    private String phoneNumber;
 
-    private String alert;
-
-    @Override
-    public String toString() {
-        return "RefuseFriendFriendResponse{" +
-                "alert='" + alert + '\'' +
-                '}';
+    public RefuseFriendFriendResponse(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public String getAlert() {
-        return alert;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setAlert(String alert) {
-        this.alert = alert;
-    }
-
-    public RefuseFriendFriendResponse(String alert) {
-        this.alert = alert;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

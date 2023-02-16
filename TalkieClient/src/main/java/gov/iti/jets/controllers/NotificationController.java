@@ -22,10 +22,17 @@ public class NotificationController implements Initializable, FXMLController {
     private Text talkie;
 
     @FXML
-    private Text name;
+    private Text nameText;
+
+    @FXML
+    private Text messageText;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        System.out.print("arg0");
+
+    }
+    public void setData(String nameText,String Message){
+        this.nameText.setText(nameText);
+        this.messageText.setText(Message);
     }
 }

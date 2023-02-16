@@ -17,7 +17,11 @@ import java.util.ResourceBundle;
 
 import gov.iti.jets.controllers.validation.SignupValidation;
 import gov.iti.jets.dto.requests.LoadFriendReqRequest;
+import gov.iti.jets.dto.requests.SendFriendReqRequest;
 import gov.iti.jets.dto.responses.LoadFriendReqResponse;
+import gov.iti.jets.dto.responses.SendFriendReqResponse;
+import gov.iti.jets.manager.MainPanelManager;
+import gov.iti.jets.models.Chat;
 import gov.iti.jets.models.CurrentUser;
 import gov.iti.jets.models.FriendRequest;
 import gov.iti.jets.network.controllers.FriendRequestController;
@@ -52,7 +56,7 @@ public class FriendRequestsController implements Initializable, FXMLController {
 
     @FXML
     private HBox contactAddHBox;
-    
+
     @FXML
     private VBox clearButtonVBox;
 
@@ -145,6 +149,36 @@ public class FriendRequestsController implements Initializable, FXMLController {
             errorLabel.setTextFill(Paint.valueOf("red"));
             messagesTextBox.getChildren().add(errorLabel);
             // responseMessageList.add(phoneNumber)
+        }else{
+            try {
+                System.out.println("SEND NEW FRIEND REQUEST");
+                FriendRequestController friendRequestController = (FriendRequestController) NetworkManager.getRegistry().lookup("FriendRequestController");
+                SendFriendReqResponse response = (SendFriendReqResponse) friendRequestController.sendFriendRequest(new SendFriendReqRequest(CurrentUser.getInstance().getUser().getPhoneNumber(), phoneNumber));
+                System.out.println(response);
+                if(response.getRegularChat()!=null){
+                    response.getRegularChat().resetChatOrder();
+                    MainPanelManager.INSTANCE.getMessageController().addRegularChat(response.getRegularChat());
+                    Label errorLabel = new Label(phoneNumber + "- You are now Friends ");
+                    errorLabel.setFont(Font.font("Comic Sans MS",12));
+                    errorLabel.setTextFill(Paint.valueOf("green"));
+                    messagesTextBox.getChildren().add(errorLabel);
+                }else if(response.getFriendRequest()!=null){
+                    addSentFriendRequest(response.getFriendRequest());
+                    Label errorLabel = new Label(phoneNumber + "- Friend Request Sent Successfully");
+                    errorLabel.setFont(Font.font("Comic Sans MS",12));
+                    errorLabel.setTextFill(Paint.valueOf("green"));
+                    messagesTextBox.getChildren().add(errorLabel);
+                }else{
+                    Label errorLabel = new Label(phoneNumber + "- User Not Found");
+                    errorLabel.setFont(Font.font("Comic Sans MS",12));
+                    errorLabel.setTextFill(Paint.valueOf("red"));
+                    messagesTextBox.getChildren().add(errorLabel);
+                }
+            } catch (RemoteException | NotBoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
         }
     }
 
@@ -210,5 +244,7 @@ public class FriendRequestsController implements Initializable, FXMLController {
         if(receivedFRLayoutsMap.get(friendPhoneNumber)!=null)deleteRecievedFRCard(friendPhoneNumber);
         if(sentFRLayoutsMap.get(friendPhoneNumber)!=null)deleteSentFRCard(friendPhoneNumber);
     }
+
+    
     
 }

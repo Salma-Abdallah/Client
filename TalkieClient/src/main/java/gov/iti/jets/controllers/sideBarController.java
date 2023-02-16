@@ -2,10 +2,17 @@ package gov.iti.jets.controllers;
 
 import java.io.*;
 import java.net.URL;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
+import gov.iti.jets.dto.requests.ChangeUserStatusRequest;
+import gov.iti.jets.dto.responses.ChangeUserStatusResponse;
 import gov.iti.jets.manager.MainPanelManager;
 import gov.iti.jets.manager.StageManager;
+import gov.iti.jets.models.CurrentUser;
+import gov.iti.jets.network.controllers.OnlineStatusController;
+import gov.iti.jets.network.manager.NetworkManager;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -73,9 +80,20 @@ public class sideBarController implements Initializable, FXMLController{
         statusChoiceBox.setValue(onlineStatus);
 
         statusChoiceBox.setOnAction((ActionEvent event)->{
-            System.out.println(statusChoiceBox.getValue());
-            if(statusChoiceBox.getValue() == onlineStatus){System.out.println("ONLINE!!!!!!!!!!!!!!!!!!!!");}
-            if(statusChoiceBox.getValue() == appearOfflineStatus){System.out.println("OFFFFFFFLINE!!!!!!!!!!!!!!!!!!!!");}
+            // System.out.println(statusChoiceBox.getValue());
+            String status = new String();
+            if(statusChoiceBox.getValue() == onlineStatus)status="Available";
+            if(statusChoiceBox.getValue() == busyStatus)status="Busy";
+            if(statusChoiceBox.getValue() == awayStatus)status="Away";
+            if(statusChoiceBox.getValue() == appearOfflineStatus)status="Invisible";
+            try {
+                OnlineStatusController onlineStatusController = (OnlineStatusController) NetworkManager.getRegistry().lookup("OnlineStatusController");
+                ChangeUserStatusResponse response = onlineStatusController.changeStatus(new ChangeUserStatusRequest(CurrentUser.getInstance().getUser().getPhoneNumber(), status));
+            } catch (RemoteException | NotBoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            
         });
 
         sideBar_notification_view.setOnMouseClicked((MouseEvent event)->{

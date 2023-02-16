@@ -75,8 +75,12 @@ public class FriendRequestCardController implements Initializable, FXMLControlle
         acceptreq.setOnAction((ActionEvent event)->{
             try {
                 FriendRequestController friendRequestController = (FriendRequestController) NetworkManager.getRegistry().lookup("FriendRequestController");
-                AcceptFriendResponse response = friendRequestController.accept(new AcceptFriendRequest(friendRequest.getSenderId().getPhoneNumber(), friendRequest.getReceiverId().getPhoneNumber()));
-                if(response.getRegularChat()!=null)MainPanelManager.INSTANCE.getMessageController().addRegularChat(response.getRegularChat());
+                AcceptFriendResponse response = friendRequestController.accept(new AcceptFriendRequest(friendRequest.getReceiverId().getPhoneNumber(), friendRequest.getSenderId().getPhoneNumber()));
+                if(response.getRegularChat()!=null){
+                    response.getRegularChat().resetChatOrder();
+                    MainPanelManager.INSTANCE.getFriendRequestsController().deleteRecievedFRCard(friendRequest.getSenderId().getPhoneNumber());
+                    MainPanelManager.INSTANCE.getMessageController().addRegularChat(response.getRegularChat());
+                }
             } catch (RemoteException | NotBoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -87,9 +91,11 @@ public class FriendRequestCardController implements Initializable, FXMLControlle
         rejectReq.setOnAction((ActionEvent event)->{
             try {
                 FriendRequestController friendRequestController = (FriendRequestController) NetworkManager.getRegistry().lookup("FriendRequestController");
-                RefuseFriendFriendResponse response = friendRequestController.refuse(new RefuseFriendRequest(friendRequest.getSenderId().getPhoneNumber(), friendRequest.getReceiverId().getPhoneNumber()));
+                System.out.println("Rece:    "+friendRequest.getReceiverId().getPhoneNumber());
+                System.out.println("Sender:    "+friendRequest.getSenderId().getPhoneNumber());
+                RefuseFriendFriendResponse response = friendRequestController.refuse(new RefuseFriendRequest(friendRequest.getReceiverId().getPhoneNumber(), friendRequest.getSenderId().getPhoneNumber()));
                 System.out.println(response);
-                if(response.getAlert().equals("refused successfully")){
+                if(response.getPhoneNumber()!=null){
                     MainPanelManager.INSTANCE.getFriendRequestsController().deleteRecievedFRCard(friendRequest.getSenderId().getPhoneNumber());
                 }
             } catch (RemoteException | NotBoundException e) {
@@ -101,9 +107,9 @@ public class FriendRequestCardController implements Initializable, FXMLControlle
         CancelSentFriendReqButton.setOnAction((ActionEvent event)->{
             try {
                 FriendRequestController friendRequestController = (FriendRequestController) NetworkManager.getRegistry().lookup("FriendRequestController");
-                CancelFriendRequestResponse response = friendRequestController.cancel(new CancelFriendRequest(friendRequest.getReceiverId().getPhoneNumber(),friendRequest.getSenderId().getPhoneNumber()));
+                CancelFriendRequestResponse response = friendRequestController.cancel(new CancelFriendRequest(friendRequest.getSenderId().getPhoneNumber(),friendRequest.getReceiverId().getPhoneNumber()));
                 System.out.println(response);
-                if(response.getAlert().equals("request deleted successfully")){
+                if(response.getPhoneNumber()!=null){
                     MainPanelManager.INSTANCE.getFriendRequestsController().deleteSentFRCard(friendRequest.getReceiverId().getPhoneNumber());
                 }
             } catch (RemoteException | NotBoundException e) {

@@ -77,9 +77,12 @@
                   </Button>
                </children>
             </HBox>
-            <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="639.0" prefWidth="453.0" VBox.vgrow="ALWAYS">
+            <ScrollPane fx:id="messagesScrollPane" fitToHeight="true" fitToWidth="true" prefHeight="639.0" prefWidth="453.0" VBox.vgrow="ALWAYS">
                <content>
-                  <VBox id="chatting_panel" fx:id="messagesContainerVBox" style="-fx-border-width: 0;" />
+                  <VBox id="chatting_panel" fx:id="messagesContainerVBox" style="-fx-border-width: 0;">
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding></VBox>
                </content>
             </ScrollPane>
             <HBox alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="40.0" style="-fx-background-color: #E0E0E0; -fx-background-radius: 20 20 0 0; -fx-border-color: #549BAD; -fx-border-width: 1  1 0 1; -fx-border-radius: 20 20 0 0;">

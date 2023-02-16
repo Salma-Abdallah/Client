@@ -1,10 +1,7 @@
 package gov.iti.jets.dto.responses;
 
-import gov.iti.jets.models.FriendRequest;
 import gov.iti.jets.models.RegularChat;
-
 import java.io.Serializable;
-import java.util.List;
 
 public class AcceptFriendResponse implements Serializable {
     private RegularChat regularChat;

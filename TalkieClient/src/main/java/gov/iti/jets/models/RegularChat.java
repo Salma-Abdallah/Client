@@ -33,6 +33,14 @@ public class RegularChat extends Chat{
         return secondParticipant;
     }
 
+    public void resetChatOrder(){
+        if(this.firstParticipant.getPhoneNumber().equals(CurrentUser.getInstance().getUser().getPhoneNumber())){
+            User temp = firstParticipant;
+            firstParticipant = secondParticipant;
+            secondParticipant = temp;
+        }
+    }
+
     @Override
     public String toString() {
         return "RegularChat{" +

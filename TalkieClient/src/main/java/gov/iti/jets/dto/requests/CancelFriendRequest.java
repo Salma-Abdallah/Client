@@ -4,15 +4,13 @@ import java.io.Serializable;
 
 public class CancelFriendRequest implements Serializable {
 
+    private String userPhoneNumber;
     private String friendPhoneNumber;
 
-
-    private String userPhoneNumber;
-     public CancelFriendRequest(String friendPhoneNumber, String userPhoneNumber) {
-        this.friendPhoneNumber = friendPhoneNumber;
+    public CancelFriendRequest(String userPhoneNumber, String friendPhoneNumber) {
         this.userPhoneNumber = userPhoneNumber;
+        this.friendPhoneNumber = friendPhoneNumber;
     }
-    public CancelFriendRequest(){}
 
     public String getUserPhoneNumber() {
         return userPhoneNumber;
@@ -33,9 +31,8 @@ public class CancelFriendRequest implements Serializable {
     @Override
     public String toString() {
         return "CancelFriendRequest{" +
-                "friendPhoneNumber='" + friendPhoneNumber + '\'' +
-                ", userPhoneNumber='" + userPhoneNumber + '\'' +
+                "userPhoneNumber='" + userPhoneNumber + '\'' +
+                ", friendPhoneNumber='" + friendPhoneNumber + '\'' +
                 '}';
     }
-
 }
